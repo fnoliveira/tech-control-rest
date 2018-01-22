@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.af.techcontrol.rest.dto.UserDto;
-import br.com.af.techcontrol.rest.model.User;
+import br.com.af.techcontrol.rest.entity.User;
 import br.com.af.techcontrol.rest.repository.UserRepository;
 
 @Service

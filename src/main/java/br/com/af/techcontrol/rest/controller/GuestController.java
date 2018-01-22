@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.af.techcontrol.rest.dto.UserDto;
+import br.com.af.techcontrol.rest.entity.Role;
 import br.com.af.techcontrol.rest.enums.Roles;
-import br.com.af.techcontrol.rest.model.Role;
 import br.com.af.techcontrol.rest.service.UserService;
 import br.com.af.techcontrol.rest.util.CustomErrorType;
 

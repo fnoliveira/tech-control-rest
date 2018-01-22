@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.af.techcontrol.rest.model.Administracao;
+import br.com.af.techcontrol.rest.entity.Administracao;
 import br.com.af.techcontrol.rest.repository.AdministracaoRepository;
 
 @Service
@@ -16,12 +16,10 @@ public class AdministracaoService {
 	
 	public List<Administracao> findAll(){
 
-		CarregaTeste();
-		
 		return administracaoRepository.findAll();
 	}
 	
-	public void CarregaTeste() {
+	public void Carga() {
 		Administracao administracao = new Administracao();
 		administracao.setId(1);
 		administracao.setCpf_cnpj("31406826898");

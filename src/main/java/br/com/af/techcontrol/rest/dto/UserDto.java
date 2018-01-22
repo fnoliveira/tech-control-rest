@@ -2,7 +2,7 @@ package br.com.af.techcontrol.rest.dto;
 
 import java.util.Set;
 
-import br.com.af.techcontrol.rest.model.Role;
+import br.com.af.techcontrol.rest.entity.Role;
 import lombok.Data;
 
 @Data
