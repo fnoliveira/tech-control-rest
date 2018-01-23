@@ -1,39 +1,27 @@
 package br.com.af.techcontrol.rest.entity;
 
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-@EntityListeners(AuditingEntityListener.class)
+@EqualsAndHashCode(callSuper = false)
 @Entity
-public class Condominio {
-
-	@Id
-	private long id;
+public class Condominio extends BaseEntity {
 
 	private String nome;
 
 	private String cnpj;
-	
+
 	private String finalidade;
-	
+
 	private String tipoCondominio;
 
 	@OneToOne
@@ -54,22 +42,7 @@ public class Condominio {
 	@OneToMany(mappedBy = "condominio")
 	private List<Avisos> avisos;
 
-	
 	@OneToMany(mappedBy = "condominio")
 	private List<Bloco> blocos;
-	
-	private String createdBy;
-
-	private String updatedBy;
-	
-	@Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
 
 }

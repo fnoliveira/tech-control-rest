@@ -13,16 +13,20 @@ public class Reserva {
 
 	@Id
 	private long id;
+
 	private String title;
+
 	private String description;
+
 	private String start;
+
 	private String end;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "fk_unidade")
 	private Unidade unidade;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "fk_espacoComum")
+	@JoinColumn(name = "fk_espacoComum")
 	private EspacoComum espacoComum;
 }

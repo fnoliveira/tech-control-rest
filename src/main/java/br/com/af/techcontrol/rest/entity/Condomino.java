@@ -1,58 +1,30 @@
 package br.com.af.techcontrol.rest.entity;
 
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-@EntityListeners(AuditingEntityListener.class)
+@EqualsAndHashCode(callSuper = false)
 @Entity
-public class Condomino {
+public class Condomino extends BaseEntity {
 
-	@Id
-	private long id;
-	
 	private String nome;
-	
+
 	private String cpf;
-	
+
 	private boolean isProprietario;
-	
+
 	@ManyToOne
-    @JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "fk_unidade")
 	private Unidade unidade;
-	
+
 	@OneToOne
-	@JoinColumn(name ="fk_contato")
+	@JoinColumn(name = "fk_contato")
 	private Contato contato;
-	
-	private String createdBy;
 
-	private String updatedBy;
-	
-	@Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdAt;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedAt;
-
-	
 }

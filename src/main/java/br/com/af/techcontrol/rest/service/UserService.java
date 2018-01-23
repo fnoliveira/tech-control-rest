@@ -19,10 +19,10 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	public synchronized boolean create(UserDto userDto) {
-		
-		if (userRepository.findOne(userDto.getUsername()) != null) {
+
+		if (userRepository.findByUsername(userDto.getUsername()) != null) {
 			return false;
 		} else {
 
@@ -35,21 +35,21 @@ public class UserService {
 			user.setRoles(userDto.getRoles());
 
 			userRepository.save(user);
-			
+
 			return true;
 		}
 	}
-	
+
 	public UserDto findByUsername(String username) {
-		
-		User user = userRepository.findOne(username);
-		
+
+		User user = userRepository.findByUsername(username);
+
 		UserDto userDto = new UserDto();
 		userDto.setEmail(user.getEmail());
 		userDto.setName(user.getName());
 		userDto.setUsername(user.getUsername());
-		
+
 		return userDto;
 	}
-	
+
 }
