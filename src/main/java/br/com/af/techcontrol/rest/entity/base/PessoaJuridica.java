@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,10 +19,12 @@ import lombok.EqualsAndHashCode;
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaJuridica extends Pessoa {
  
-	@Column(name = "razao_social", length = 100, nullable = false)
+	@NotBlank
+	@Column(name = "razao_social", length = 100)
 	private String razaoSocial;
 	
-	@Column(name = "cnpj", length = 14, nullable = false)
+	@NotBlank
+	@Column(name = "cnpj", length = 14)
 	private String cnpj;
 	
 	@Column(name = "inscricao_estadual", length = 15)

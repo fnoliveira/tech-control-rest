@@ -21,4 +21,12 @@ public class AdministradorService {
 	public Administrador save(Administrador administracao) {
 		return administracaoRepository.save(administracao);
 	}
+
+	public Administrador findOne(Long administradorId) {
+		return administracaoRepository.findOne(administradorId);
+	}
+
+	public void delete(Administrador administrador) {
+		administracaoRepository.delete(administrador);
+	}
 }

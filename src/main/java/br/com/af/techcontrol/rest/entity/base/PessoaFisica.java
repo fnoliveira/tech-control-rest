@@ -10,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,7 +23,8 @@ import lombok.EqualsAndHashCode;
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaFisica extends Pessoa {
 
-	@Column(unique = true, name = "cpf", length = 14, nullable = false)
+	@NotBlank
+	@Column(unique = true, name = "cpf", length = 14)
 	private String cpf;
 
 	@Temporal(TemporalType.DATE)

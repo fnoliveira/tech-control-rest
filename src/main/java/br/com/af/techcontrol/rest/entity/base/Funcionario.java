@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condomino.Unidade;
 import lombok.Data;
@@ -21,10 +23,12 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class Funcionario extends BaseEntityAudit {
 
+	@NotBlank
 	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name="pessoa_id")
     private Pessoa pessoa;
 	
+	@NotBlank
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_admissao", nullable = false)
 	private Date dataAdmissao;
@@ -33,6 +37,7 @@ public class Funcionario extends BaseEntityAudit {
 	@Column(name = "data_demissao", nullable = true)
 	private Date dataDemissao;
 	
+	@NotBlank
 	@ManyToOne
 	@JoinColumn(name = "fk_condominio")
 	private Condominio condominio;

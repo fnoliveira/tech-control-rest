@@ -3,7 +3,6 @@ package br.com.af.techcontrol.rest.config;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -46,25 +45,43 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		if (alreadySetup)
 			return;
 
+		PessoaFisica pf = new PessoaFisica();
+		
 		// == create initial privileges
 		Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
 		Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-
+		Privilege masterPrivilege = createPrivilegeIfNotFound("MASTER_PRIVILEGE");
+		
+		
 		// == create initial roles
 		List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
 
 		List<Privilege> rolePrivileges = new ArrayList<>();
 		createRoleIfNotFound("ROLE_USER", rolePrivileges);
+		
+		List<Privilege> masterPrivileges = Arrays.asList(masterPrivilege);
+		createRoleIfNotFound("ROLE_MASTER", masterPrivileges);
+		
+		//USUARIO ROOT
+		Role masterRole = roleRepository.findByName("ROLE_MASTER");
+		User masterUser = new User();
+		pf.setNome("Master");
+		pf.setEnabled(true);
+		pf.setCpf("99999999992");
+		masterUser.setPessoa(pf);
+		masterUser.setUsername("master");
+		masterUser.setEmail("master@test.com");
+		masterUser.setPassword(passwordEncoder.encode("123456"));
+		masterUser.setRoles(Arrays.asList(masterRole));
+		masterUser.setEnabled(true);
+		userRepository.save(masterUser);
 
 		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 		User user = new User();
-		PessoaFisica pf = new PessoaFisica();
-		pf.setNome("Francis");
+		pf.setNome("Sindico");
 		pf.setEnabled(true);
-		pf.setCpf("99999999992");
-		pf.setDataNascimento(new Date("01/01/2000"));
-		pf.setSexo("M");
+		pf.setCpf("12312312334");
 		user.setPessoa(pf);
 		user.setUsername("admin");
 		user.setEmail("admin@test.com");
@@ -75,6 +92,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		Role basicRole = roleRepository.findByName("ROLE_USER");
 		User basicUser = new User();
+		pf.setNome("Condomino");
+		pf.setEnabled(true);
+		pf.setCpf("88888888890");
+		basicUser.setPessoa(pf);
 		basicUser.setUsername("user");
 		basicUser.setEmail("user@test.com");
 		basicUser.setPassword(passwordEncoder.encode("123456"));

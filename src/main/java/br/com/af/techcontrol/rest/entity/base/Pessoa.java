@@ -7,6 +7,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,10 +20,11 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public abstract class Pessoa extends BaseEntityAudit {
 
-	@Column(name = "nome", length = 50, nullable = false)
+	@NotBlank
+	@Column(name = "nome", length = 50)
 	private String nome;
 	
-	@Column(name = "observacao", length = 255, nullable = true)
+	@Column(name = "observacao", length = 255)
 	private String observacao;
     
 }
