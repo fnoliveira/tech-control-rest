@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.base;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

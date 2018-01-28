@@ -1,8 +1,8 @@
 package br.com.af.techcontrol.rest.dto;
 
-import java.util.Set;
+import java.util.Collection;
 
-import br.com.af.techcontrol.rest.entity.Role;
+import br.com.af.techcontrol.rest.entity.base.Role;
 import lombok.Data;
 
 @Data
@@ -16,6 +16,6 @@ public class UserDto {
 	
 	private String password;
 
-	private Set<Role> roles;
+	private Collection<Role> roles;
 	
 }

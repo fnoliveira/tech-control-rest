@@ -10,26 +10,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.af.techcontrol.rest.entity.Administracao;
-import br.com.af.techcontrol.rest.service.AdministracaoService;
+import br.com.af.techcontrol.rest.entity.base.PessoaFisica;
+import br.com.af.techcontrol.rest.entity.condominio.Administrador;
+import br.com.af.techcontrol.rest.service.AdministradorService;
 
 @RestController
 @RequestMapping("/administracao")
 public class AdministracaoController {
 
 	@Autowired
-	AdministracaoService administracaoService;
+	AdministradorService administracaoService;
 	
 	
 	@GetMapping
-	public ResponseEntity<List<Administracao>> getReserva() {
+	public ResponseEntity<List<Administrador>> getReserva() {
 
-		List<Administracao> administracoes = new ArrayList<Administracao>();
-		
-		
+		List<Administrador> administracoes = new ArrayList<Administrador>();
 		
 		administracoes =administracaoService.findAll();
 
-		return new ResponseEntity<List<Administracao>>(administracoes, HttpStatus.OK);
+		return new ResponseEntity<List<Administrador>>(administracoes, HttpStatus.OK);
 	}
 }

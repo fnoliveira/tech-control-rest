@@ -1,10 +1,9 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.base;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,14 +13,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public abstract class BaseEntity {
-
-	@Id
-	private long id;
+public abstract class BaseEntityAudit extends BaseEntity{
 
 	private String createdBy;
 

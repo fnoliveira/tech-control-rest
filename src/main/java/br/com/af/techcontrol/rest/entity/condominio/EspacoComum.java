@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.condominio;
 
 import java.util.List;
 
@@ -7,13 +7,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class EspacoComum extends BaseEntity {
+public class EspacoComum extends BaseEntityAudit {
 
 	private String nome;
 

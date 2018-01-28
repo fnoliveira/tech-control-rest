@@ -1,18 +1,18 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.condominio;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.af.techcontrol.rest.entity.base.BaseEntity;
+import br.com.af.techcontrol.rest.entity.condomino.Unidade;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
-public class Reserva {
-
-	@Id
-	private long id;
+public class Reserva extends BaseEntity {
 
 	private String title;
 

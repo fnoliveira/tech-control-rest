@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.base;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class Contato extends BaseEntity {
+public class Contato extends BaseEntityAudit {
 
 	@OneToMany(mappedBy = "contato")
 	private List<Telefone> telefones;

@@ -2,10 +2,8 @@ package br.com.af.techcontrol.rest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.af.techcontrol.rest.entity.User;
+import br.com.af.techcontrol.rest.entity.base.User;
 
-public interface UserRepository extends JpaRepository<User, Long>{
-
-	public User findByUsername(String username);
-	
+public interface UserRepository extends JpaRepository<User, Long> {
+	User findByUsername(String username);
 }

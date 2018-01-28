@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.condomino;
 
 import java.util.List;
 
@@ -7,13 +7,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
+import br.com.af.techcontrol.rest.entity.base.Funcionario;
+import br.com.af.techcontrol.rest.entity.condominio.Bloco;
+import br.com.af.techcontrol.rest.entity.condominio.Reserva;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-public class Unidade extends BaseEntity {
+public class Unidade extends BaseEntityAudit {
 
 	@ManyToOne
 	@JoinColumn(name = "fk_bloco")

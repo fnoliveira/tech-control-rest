@@ -1,16 +1,14 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.base;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Entity
-public class Endereco {
-
-	@Id
-	private long id;
+public class Endereco extends BaseEntity {
 
 	private String cep;
 
