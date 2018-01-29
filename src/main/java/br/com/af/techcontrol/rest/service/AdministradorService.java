@@ -26,7 +26,7 @@ public class AdministradorService {
 		return administracaoRepository.findOne(administradorId);
 	}
 
-	public void delete(Administrador administrador) {
-		administracaoRepository.delete(administrador);
+	public void delete(Long id) {
+		administracaoRepository.delete(id);
 	}
 }
