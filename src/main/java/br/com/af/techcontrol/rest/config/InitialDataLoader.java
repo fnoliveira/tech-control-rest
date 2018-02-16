@@ -13,10 +13,15 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import br.com.af.techcontrol.rest.entity.base.Contato;
+import br.com.af.techcontrol.rest.entity.base.Email;
 import br.com.af.techcontrol.rest.entity.base.PessoaFisica;
 import br.com.af.techcontrol.rest.entity.base.Privilege;
 import br.com.af.techcontrol.rest.entity.base.Role;
+import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.base.User;
+import br.com.af.techcontrol.rest.entity.condominio.Administrador;
+import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.repository.PrivilegeRepository;
 import br.com.af.techcontrol.rest.repository.RoleRepository;
 import br.com.af.techcontrol.rest.repository.UserRepository;
@@ -45,6 +50,60 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		if (alreadySetup)
 			return;
 
+		criarUsuarios();
+		
+		criarAdministradorPF();
+
+		alreadySetup = true;
+	}
+
+	private void criarAdministradorPF() {
+		Administrador adm = new Administrador();
+		
+		PessoaFisica pf = new PessoaFisica();
+		
+		pf.setNome("Fatima");
+		pf.setCpf("12345678901");
+		pf.setSexo("M");
+		pf.setEnabled(true);
+		
+		List<Email> emails = new ArrayList<Email>();
+		Email email = new Email();
+		
+		email.setPrincipal(true);
+		email.setTipo("Comercial");
+		email.setEndereco("fatima@tech.com.br");
+		email.setEnabled(true);
+		emails.add(email);
+				
+		email.setTipo("Pessoal");
+		email.setEndereco("fatima@bol.com.br");
+		email.setEnabled(true);
+		emails.add(email);
+		
+		List<Telefone> telefones = new ArrayList<Telefone>();
+		Telefone telefone = new Telefone();
+		telefone.setTipo("Celular");
+		telefone.setDdd("11");
+		telefone.setNumero("947020150");
+		telefone.setEnabled(true);
+		telefones.add(telefone );
+		
+		Contato contato = new Contato();
+		contato.setEmails(emails);
+		contato.setTelefones(telefones);
+		contato.setEnabled(true);
+		
+		Condominio condominio = new Condominio();
+		List<Condominio> condominios = new ArrayList<Condominio>();
+		condominios.add(condominio );
+		
+		adm.setPessoa(pf);
+		adm.setContato(contato);
+		adm.setCondominios(condominios );
+	}
+
+	private void criarUsuarios() {
 		PessoaFisica pf = new PessoaFisica();
 		
 		// == create initial privileges
@@ -102,8 +161,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		basicUser.setRoles(Arrays.asList(basicRole));
 		basicUser.setEnabled(true);
 		userRepository.save(basicUser);
-
-		alreadySetup = true;
 	}
 
 	@Transactional

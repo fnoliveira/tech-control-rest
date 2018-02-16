@@ -17,6 +17,6 @@ public class Contato extends BaseEntityAudit {
 	private List<Telefone> telefones;
 
 	@OneToMany(mappedBy = "contato")
-	private List<Email> email;
+	private List<Email> emails;
 
 }
