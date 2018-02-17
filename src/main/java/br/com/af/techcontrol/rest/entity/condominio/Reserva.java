@@ -6,13 +6,19 @@ import javax.persistence.ManyToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntity;
 import br.com.af.techcontrol.rest.entity.condomino.Unidade;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Reserva extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	private String title;
 

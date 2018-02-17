@@ -11,28 +11,32 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Entity
 @Table(name = "PESSOA_FISICA")
 @DiscriminatorValue(value = "PF")
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaFisica extends Pessoa {
 
+	private static final long serialVersionUID = 1L;
+
 	@NotBlank
-	@Column(unique = true, name = "cpf", length = 14)
+	@CPF
+	@Column(unique = true, length = 14)
 	private String cpf;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 
-	@Column(name = "sexo", length = 1)
+	@Column(length = 1)
 	private String sexo;
 
-
+	private Boolean isEnable;
 }

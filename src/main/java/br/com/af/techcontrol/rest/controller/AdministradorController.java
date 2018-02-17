@@ -52,15 +52,13 @@ public class AdministradorController {
 	}
 
 	@PutMapping(path = "/{id}")
-	public ResponseEntity<Response<Administrador>> atualizar(@PathVariable(name = "id") Long id,
-			@Valid @RequestBody Administrador administrador, BindingResult result) {
+	public ResponseEntity<Response<Administrador>> atualizar(@PathVariable(name = "id") Long id, @Valid @RequestBody Administrador administrador, BindingResult result) {
 		if (result.hasErrors()) {
 			List<String> erros = new ArrayList<String>();
 			result.getAllErrors().forEach(erro -> erros.add(erro.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(new Response<Administrador>(erros));
 		}
 
-		administrador.setId(id);
 		return ResponseEntity.ok(new Response<Administrador>(this.administradorService.save(administrador)));
 	}
 

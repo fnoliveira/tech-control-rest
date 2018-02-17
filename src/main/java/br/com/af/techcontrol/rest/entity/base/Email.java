@@ -4,20 +4,35 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Email extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
+	@NonNull
 	private String tipo;
 
+	@NonNull
 	private String endereco;
 
-	private boolean isPrincipal;
+	@NonNull
+	private Boolean isPrincipal;
 
+	@NonNull
+	private Boolean isEnable;
+	
 	@ManyToOne
 	@JoinColumn(name = "fk_contato")
 	private Contato contato;

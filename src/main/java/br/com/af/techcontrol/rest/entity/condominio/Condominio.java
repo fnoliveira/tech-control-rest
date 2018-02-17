@@ -14,44 +14,65 @@ import br.com.af.techcontrol.rest.entity.base.Contato;
 import br.com.af.techcontrol.rest.entity.base.Endereco;
 import br.com.af.techcontrol.rest.entity.base.Funcionario;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Condominio extends BaseEntityAudit {
 
+	private static final long serialVersionUID = 1L;
+
+	@NonNull
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
 
+	@NonNull
 	private String finalidade;
 
+	@NonNull
 	private String tipoCondominio;
 
-	@OneToOne
+	@NonNull
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_endereco")
 	private Endereco endereco;
 
-	@OneToOne
+	@NonNull
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_contato")
 	private Contato contato;
 
-	@OneToMany(mappedBy = "condominio")
+	@NonNull
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	private List<Bloco> blocos;
+
+	@NonNull
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	private List<EspacoComum> espacos;
+
+	@NonNull
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
 	private List<Funcionario> funcionarios;
+
+	@NonNull
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	private List<Avisos> avisos;
+
+	@NonNull
+	private Boolean isEnable;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_administrador")
 	private Administrador administrador;
-
-	@OneToMany(mappedBy = "condominio")
-	private List<EspacoComum> espacos;
-
-	@OneToMany(mappedBy = "condominio")
-	private List<Avisos> avisos;
-
-	@OneToMany(mappedBy = "condominio")
-	private List<Bloco> blocos;
 
 }

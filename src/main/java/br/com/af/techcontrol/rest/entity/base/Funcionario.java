@@ -15,35 +15,43 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condomino.Unidade;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Funcionario extends BaseEntityAudit {
 
+	private static final long serialVersionUID = 1L;
+
 	@NotBlank
-	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
-    @JoinColumn(name="pessoa_id")
-    private Pessoa pessoa;
-	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "pessoa_id")
+	private Pessoa pessoa;
+
 	@NotBlank
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_admissao", nullable = false)
+	@Column(nullable = false)
 	private Date dataAdmissao;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_demissao", nullable = true)
+	@Column(nullable = true)
 	private Date dataDemissao;
-	
+
 	@NotBlank
 	@ManyToOne
 	@JoinColumn(name = "fk_condominio")
 	private Condominio condominio;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "fk_unidade")
 	private Unidade unidade;
+	
+	private Boolean isEnable;
 
 }

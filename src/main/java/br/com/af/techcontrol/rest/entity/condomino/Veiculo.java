@@ -5,13 +5,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Veiculo extends BaseEntityAudit {
+
+	private static final long serialVersionUID = 1L;
 
 	private String tipo;
 

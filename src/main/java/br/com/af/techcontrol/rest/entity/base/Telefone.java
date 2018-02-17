@@ -4,22 +4,36 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Telefone extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
+	@NonNull
 	private String tipo;
 
+	@NonNull
 	private String ddd;
 
+	@NonNull
 	private String numero;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_contato")
 	private Contato contato;
 
+	@NonNull
+	private Boolean isEnable;
 }

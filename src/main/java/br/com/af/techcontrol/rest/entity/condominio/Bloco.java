@@ -2,26 +2,42 @@ package br.com.af.techcontrol.rest.entity.condominio;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.condomino.Unidade;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
 @Entity
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Bloco extends BaseEntityAudit {
+
+	private static final long serialVersionUID = 1L;
+
+	@NonNull
+	@NotBlank
+	private String nome;
+
+	@NonNull
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "bloco")
+	private List<Unidade> unidades;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_condominio")
 	private Condominio condominio;
-
-	@OneToMany(mappedBy = "bloco")
-	private List<Unidade> unidades;
-
 }
