@@ -11,10 +11,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @DiscriminatorColumn(name = "TIPO_DE_PESSOA")
 @Inheritance(strategy = InheritanceType.JOINED)
