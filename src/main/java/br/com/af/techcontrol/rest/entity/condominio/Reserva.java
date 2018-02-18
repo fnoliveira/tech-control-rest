@@ -29,10 +29,10 @@ public class Reserva extends BaseEntity {
 	private String end;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "unidade_id")
 	private Unidade unidade;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_espacoComum")
+	@JoinColumn(name = "espaco_comum_id")
 	private EspacoComum espacoComum;
 }

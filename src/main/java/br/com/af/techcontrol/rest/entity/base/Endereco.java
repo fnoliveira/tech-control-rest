@@ -1,6 +1,10 @@
 package br.com.af.techcontrol.rest.entity.base;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +36,8 @@ public class Endereco extends BaseEntity {
 
 	private String pais;
 
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "enderecos")
+	private Collection<Pessoa> pessoas;
+	
 	private Boolean isEnable;
 }

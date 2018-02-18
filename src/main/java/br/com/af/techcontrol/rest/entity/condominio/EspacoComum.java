@@ -12,6 +12,7 @@ import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -33,10 +34,13 @@ public class EspacoComum extends BaseEntityAudit {
 
 	private boolean isPermiteReserva;
 
+	@ManyToOne
+	@JoinColumn(name = "condominio_id")
+	private Condominio condominio;
+	
+	@NonNull
+	private Boolean isEnable;
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "espacoComum")
 	private List<Reserva> reservas;
-
-	@ManyToOne
-	@JoinColumn(name = "fk_condominio")
-	private Condominio condominio;
 }

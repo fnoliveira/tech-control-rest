@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.rest.config;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,6 +28,8 @@ import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condomino.Unidade;
 import br.com.af.techcontrol.rest.repository.AdministradorRepository;
+import br.com.af.techcontrol.rest.repository.PessoaFisicaRepository;
+import br.com.af.techcontrol.rest.repository.PessoaJuridicaRepository;
 import br.com.af.techcontrol.rest.repository.PrivilegeRepository;
 import br.com.af.techcontrol.rest.repository.RoleRepository;
 import br.com.af.techcontrol.rest.repository.UserRepository;
@@ -44,6 +47,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PessoaFisicaRepository pessoaFisicaRepository;
+	
+	@Autowired
+	private PessoaJuridicaRepository pessoaJuridicaRepository;
 
 	@Autowired
 	private PrivilegeRepository privilegeRepository;
@@ -65,15 +74,49 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		alreadySetup = true;
 	}
 
-	private void criarAdministradorPF() {
-
+	
+	private void criaPessoaPJ() {
+		PessoaJuridica pj  = new PessoaJuridica();
+		pj.setNome("Passos Gerenciamento");
+		pj.setRazaoSocial("Passos Azevedo");
+		pj.setCnpj("24540435000197");
+		pj.setIsEnable(true);
+		pessoaJuridicaRepository.save(pj);
+	}
+	
+	private void criaPessoaPF() {
 		PessoaFisica pf = new PessoaFisica();
 		pf.setNome("Fatima");
 		pf.setCpf("12345678901");
 		pf.setSexo("F");
+		pf.setDataNascimento(LocalDate.parse("04/03/1985"));
 		pf.setIsEnable(true);
+		pessoaFisicaRepository.save(pf);
+	}
+			
+	private void criaContato() {
+		Contato contato = new Contato();
+		
+		Telefone telefoneCel = new Telefone("Celular", "11", "123451234",contato,true);
+		Telefone telefoneCom = new Telefone("Comercial", "11", "41414141",contato,true);
+		
+		Email email =new Email("Pessoal", "fatima@bol.com.br", false, true,contato);
+		Email emailCom = new Email("Comercial", "fatima@tech.com.br", true, true,contato); 
+		
+		
+	}
+	
+	private void criaAdministradorPJ() {
+		Administrador administradorPJ = new Administrador();
+		PessoaJuridica pj = pessoaJuridicaRepository.findByCnpj("24540435000197");
+		
+		administradorPJ.setPessoa(pj);
+	}
+	
+	private void criarAdministradorPF1() {
 
-		List<Email> emailsAdmin = new ArrayList<Email>();
+		
+		/*List<Email> emailsAdmin = new ArrayList<Email>();
 		emailsAdmin.add(new Email("Comercial", "fatima@tech.com.br", true, true));
 		emailsAdmin.add(new Email("Pessoal", "fatima@bol.com.br", false, true));
 		List<Telefone> telefonesAdmin = new ArrayList<Telefone>();
@@ -114,7 +157,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		Administrador adm = new Administrador(pf, new Contato(telefonesAdmin, emailsAdmin), condominios, true);
 
-		administradorRepository.save(adm);
+		administradorRepository.save(adm);*/
 
 	}
 
@@ -144,7 +187,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		pf.setCpf("99999999992");
 		masterUser.setPessoa(pf);
 		masterUser.setUsername("master");
-		masterUser.setEmail("master@test.com");
 		masterUser.setPassword(passwordEncoder.encode("123456"));
 		masterUser.setRoles(Arrays.asList(masterRole));
 		masterUser.setIsEnable(true);
@@ -157,7 +199,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		pf.setCpf("12312312334");
 		user.setPessoa(pf);
 		user.setUsername("admin");
-		user.setEmail("admin@test.com");
 		user.setPassword(passwordEncoder.encode("123456"));
 		user.setRoles(Arrays.asList(adminRole));
 		user.setIsEnable(true);
@@ -170,7 +211,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		pf.setCpf("88888888890");
 		basicUser.setPessoa(pf);
 		basicUser.setUsername("user");
-		basicUser.setEmail("user@test.com");
 		basicUser.setPassword(passwordEncoder.encode("123456"));
 		basicUser.setRoles(Arrays.asList(basicRole));
 		basicUser.setIsEnable(true);

@@ -34,7 +34,7 @@ public class Email extends BaseEntity {
 	private Boolean isEnable;
 	
 	@ManyToOne
-	@JoinColumn(name = "fk_contato")
+	@JoinColumn(name = "contato_id")
 	private Contato contato;
 
 }

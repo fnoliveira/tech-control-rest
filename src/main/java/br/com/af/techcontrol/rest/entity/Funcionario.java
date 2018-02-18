@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity.base;
+package br.com.af.techcontrol.rest.entity;
 
 import java.util.Date;
 
@@ -13,6 +13,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
+import br.com.af.techcontrol.rest.entity.base.Pessoa;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condomino.Unidade;
 import lombok.AllArgsConstructor;
@@ -45,11 +47,11 @@ public class Funcionario extends BaseEntityAudit {
 
 	@NotBlank
 	@ManyToOne
-	@JoinColumn(name = "fk_condominio")
+	@JoinColumn(name = "condominio_id")
 	private Condominio condominio;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "unidade_id")
 	private Unidade unidade;
 	
 	private Boolean isEnable;

@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import br.com.af.techcontrol.rest.entity.Funcionario;
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
-import br.com.af.techcontrol.rest.entity.base.Funcionario;
 import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Reserva;
 import lombok.AllArgsConstructor;

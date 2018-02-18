@@ -32,7 +32,7 @@ public class Avisos extends BaseEntityAudit {
 	private boolean isFixo;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_condominio")
+	@JoinColumn(name = "condominio_id")
 	private Condominio condominio;
 
 }

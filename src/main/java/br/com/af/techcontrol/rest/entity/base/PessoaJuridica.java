@@ -27,7 +27,7 @@ public class PessoaJuridica extends Pessoa {
 
 	@NotBlank
 	@Size(min = 3, max = 100)
-	@Column(name = "razao_social", length = 100)
+	@Column(length = 100)
 	private String razaoSocial;
 
 	@NotBlank

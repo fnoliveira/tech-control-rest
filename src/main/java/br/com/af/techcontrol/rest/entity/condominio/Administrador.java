@@ -9,7 +9,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
-import br.com.af.techcontrol.rest.entity.base.Contato;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,10 +27,6 @@ public class Administrador extends BaseEntityAudit {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
-
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "fk_contato")
-	private Contato contato;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "administrador")
 	private List<Condominio> condominios;

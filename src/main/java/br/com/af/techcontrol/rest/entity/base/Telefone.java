@@ -31,7 +31,7 @@ public class Telefone extends BaseEntity {
 	private String numero;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_contato")
+	@JoinColumn(name = "contato_id")
 	private Contato contato;
 
 	@NonNull
