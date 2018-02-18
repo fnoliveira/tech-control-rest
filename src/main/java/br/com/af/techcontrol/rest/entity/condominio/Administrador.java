@@ -13,10 +13,13 @@ import br.com.af.techcontrol.rest.entity.base.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -24,13 +27,16 @@ public class Administrador extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
+	@NonNull
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
 
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "administrador")
 	private List<Condominio> condominios;
 
+	@NonNull
 	private Boolean isEnable;
 
 }

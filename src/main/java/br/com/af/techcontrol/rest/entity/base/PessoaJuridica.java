@@ -32,7 +32,7 @@ public class PessoaJuridica extends Pessoa {
 
 	@NotBlank
 	@CNPJ
-	@Column
+	@Column(unique = true)
 	private String cnpj;
 
 	@Column(length = 15)

@@ -12,21 +12,21 @@ import br.com.af.techcontrol.rest.repository.AdministradorRepository;
 public class AdministradorService {
 
 	@Autowired
-	AdministradorRepository administracaoRepository;
+	AdministradorRepository repository;
 
 	public List<Administrador> findAll() {
-		return administracaoRepository.findAll();
+		return repository.findAll();
 	}
 
-	public Administrador save(Administrador administracao) {
-		return administracaoRepository.save(administracao);
+	public Administrador save(Administrador administrador) {
+		return repository.save(administrador);
 	}
 
 	public Administrador findOne(Long administradorId) {
-		return administracaoRepository.findOne(administradorId);
+		return repository.findOne(administradorId);
 	}
 
 	public void delete(Long id) {
-		administracaoRepository.delete(id);
+		repository.delete(id);
 	}
 }

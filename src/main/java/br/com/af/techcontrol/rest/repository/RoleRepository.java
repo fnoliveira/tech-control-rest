@@ -6,6 +6,6 @@ import br.com.af.techcontrol.rest.entity.base.Role;
 
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
+	
 	Role findByName(String name);
-
 }

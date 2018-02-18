@@ -6,4 +6,7 @@ import br.com.af.techcontrol.rest.entity.base.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUsername(String username);
+	
+	User findByPessoaIdAndUsername(Long pessoaId, String username);
+	
 }
