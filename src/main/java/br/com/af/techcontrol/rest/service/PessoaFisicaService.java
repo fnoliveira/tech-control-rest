@@ -44,7 +44,7 @@ public class PessoaFisicaService {
 		if (pessoaFisica == null) {
 			pessoaFisica = new PessoaFisica();
 			pessoaFisica.setNome(nome);
-			pessoaFisica.setCpf(nome);
+			pessoaFisica.setCpf(cpf);
 			pessoaFisica.setSexo(sexo);
 			pessoaFisica.setDataNascimento(datanascimento);
 			pessoaFisica.setEnderecos(enderecos);

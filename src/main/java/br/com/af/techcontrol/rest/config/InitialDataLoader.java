@@ -67,6 +67,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		createAdministradorPJ();
 
+		createAdministradorPF();
+
 		alreadySetup = true;
 	}
 
@@ -97,7 +99,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				"SP");
 
 		PessoaFisica pessoaFisica = pessoaFisicaService.createPessoaPFIfNotFound("Jose da Silva", "31406826898", "M",
-				LocalDate.parse("04/03/1985"), Arrays.asList(endereco));
+				LocalDate.of(1985, 04, 03), Arrays.asList(endereco));
 
 		contatoService.createContatoIfNotFound(pessoaFisica,
 				Arrays.asList(new Telefone("Residencial", "11", "41411966", true),

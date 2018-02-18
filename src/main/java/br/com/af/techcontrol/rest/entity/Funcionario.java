@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.rest.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -37,13 +38,11 @@ public class Funcionario extends BaseEntityAudit {
 	private Pessoa pessoa;
 
 	@NotBlank
-	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
-	private Date dataAdmissao;
+	private LocalDate dataAdmissao;
 
-	@Temporal(TemporalType.DATE)
 	@Column(nullable = true)
-	private Date dataDemissao;
+	private LocalDate dataDemissao;
 
 	@NotBlank
 	@ManyToOne
