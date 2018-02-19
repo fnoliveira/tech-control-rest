@@ -21,7 +21,7 @@ public class Animal extends BaseEntityAudit {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "unidade_id")
 	private Unidade unidade;
 
 }

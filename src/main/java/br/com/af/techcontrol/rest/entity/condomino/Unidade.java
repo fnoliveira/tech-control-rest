@@ -56,6 +56,6 @@ public class Unidade extends BaseEntityAudit {
 	private Boolean isEnable;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_bloco")
+	@JoinColumn(name = "bloco_id")
 	private Bloco bloco;
 }

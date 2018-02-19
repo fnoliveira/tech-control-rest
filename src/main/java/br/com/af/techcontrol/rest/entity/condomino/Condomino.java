@@ -30,10 +30,10 @@ public class Condomino extends BaseEntityAudit {
 	private boolean isProprietario;
 
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "fk_contato")
+	@JoinColumn(name = "contato_id")
 	private Contato contato;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "unidade_id")
 	private Unidade unidade;
 }

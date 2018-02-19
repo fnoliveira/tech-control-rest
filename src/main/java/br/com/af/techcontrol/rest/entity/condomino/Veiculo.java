@@ -34,7 +34,7 @@ public class Veiculo extends BaseEntityAudit {
 	private String foto;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_unidade")
+	@JoinColumn(name = "unidade_id")
 	private Unidade unidade;
 
 }
