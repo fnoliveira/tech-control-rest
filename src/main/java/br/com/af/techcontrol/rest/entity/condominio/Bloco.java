@@ -33,11 +33,11 @@ public class Bloco extends BaseEntityAudit {
 	@NotBlank
 	private String nome;
 
+	@NonNull
 	@ManyToOne
 	@JoinColumn(name = "condominio_id")
 	private Condominio condominio;
 
-	@NonNull
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "bloco")
 	private List<Unidade> unidades;
 }

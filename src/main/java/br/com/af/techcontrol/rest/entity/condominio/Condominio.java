@@ -46,19 +46,15 @@ public class Condominio extends BaseEntityAudit {
 	@NonNull
 	private Boolean isEnable;
 
-	@NonNull
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
 	private List<Bloco> blocos;
 
-	@NonNull
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
 	private List<EspacoComum> espacos;
 
-	@NonNull
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
 	private List<Funcionario> funcionarios;
 
-	@NonNull
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
 	private List<Avisos> avisos;
 

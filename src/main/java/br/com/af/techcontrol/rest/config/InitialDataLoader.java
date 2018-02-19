@@ -19,7 +19,11 @@ import br.com.af.techcontrol.rest.entity.base.PessoaJuridica;
 import br.com.af.techcontrol.rest.entity.base.Privilege;
 import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.condominio.Administrador;
+import br.com.af.techcontrol.rest.entity.condominio.Bloco;
+import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.service.AdministradorService;
+import br.com.af.techcontrol.rest.service.BlocoService;
+import br.com.af.techcontrol.rest.service.CondominioService;
 import br.com.af.techcontrol.rest.service.ContatoService;
 import br.com.af.techcontrol.rest.service.EnderecoService;
 import br.com.af.techcontrol.rest.service.PessoaFisicaService;
@@ -38,6 +42,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	@Autowired
 	private AdministradorService administradorService;
+
+	@Autowired
+	private CondominioService condominioService;
+
+	@Autowired
+	private BlocoService blocoService;
 
 	@Autowired
 	private RoleService roleService;
@@ -69,10 +79,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		createAdministradorPF();
 
+		createCondominio();
+		
 		alreadySetup = true;
 	}
 
-	private Administrador createAdministradorPJ() {
+	private void createAdministradorPJ() {
 		Endereco enderecoMatriz = enderecoService.createEndereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo",
 				"SP");
 		Endereco enderecoFilial = enderecoService.createEndereco("06663045", "Rua dois", "90", "", "Setor E",
@@ -90,10 +102,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		Administrador administrador = new Administrador(pessoaJuridica, true);
 
-		return administradorService.save(administrador);
+		administradorService.save(administrador);
 	}
 
-	private Administrador createAdministradorPF() {
+	private void createAdministradorPF() {
 
 		Endereco endereco = enderecoService.createEndereco("06663190", "Rua um", "60", "", "Setor D", "Sao Paulo",
 				"SP");
@@ -110,53 +122,23 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		Administrador administrador = new Administrador(pessoaFisica, true);
 
-		return administradorService.save(administrador);
+		administradorService.save(administrador);
 	}
 
-	private void criarAdministradorPF1() {
+	private void createCondominio() {
 
-		/*
-		 * List<Email> emailsAdmin = new ArrayList<Email>(); emailsAdmin.add(new
-		 * Email("Comercial", "fatima@tech.com.br", true, true)); emailsAdmin.add(new
-		 * Email("Pessoal", "fatima@bol.com.br", false, true)); List<Telefone>
-		 * telefonesAdmin = new ArrayList<Telefone>(); telefonesAdmin.add(new
-		 * Telefone("Celular", "11", "123451234", true));
-		 * 
-		 * List<Condominio> condominios = new ArrayList<Condominio>(); Condominio
-		 * condominio = new Condominio(); condominio.setFinalidade("Residencial");
-		 * condominio.setTipoCondominio("V"); condominio.setIsEnable(true);
-		 * 
-		 * PessoaJuridica pj = new PessoaJuridica();
-		 * pj.setNome("Condominio Parque das Rosas"); pj.setCnpj("12345678901234");
-		 * pj.setIsEnable(true); pj.setRazaoSocial("F Associacao Condominio Ltda");
-		 * condominio.setPessoa(pj);
-		 * 
-		 * condominio.setEndereco(new Endereco("06663190", "Rua um", "45", "",
-		 * "Setor D", "Sao Paulo", "SP", "BR", true));
-		 * 
-		 * List<Telefone> telefonesCond = new ArrayList<Telefone>();
-		 * telefonesCond.add(new Telefone("Celular", "11", "123451234", true));
-		 * List<Email> emailsCond = new ArrayList<Email>(); emailsCond.add(new
-		 * Email("Comercial", "pqrosas@tech.com.br", true, true));
-		 * condominio.setContato(new Contato(telefonesCond, emailsCond));
-		 * 
-		 * List<Unidade> unidades = new ArrayList<Unidade>(); unidades.add(new
-		 * Unidade("110")); unidades.add(new Unidade("120")); unidades.add(new
-		 * Unidade("130"));
-		 * 
-		 * List<Bloco> blocos = new ArrayList<Bloco>(); blocos.add(new Bloco("Bloco A",
-		 * unidades));
-		 * 
-		 * condominio.setBlocos(blocos);
-		 * 
-		 * condominios.add(condominio);
-		 * 
-		 * Administrador adm = new Administrador(pf, new Contato(telefonesAdmin,
-		 * emailsAdmin), condominios, true);
-		 * 
-		 * administradorRepository.save(adm);
-		 */
+		Endereco endereco = enderecoService.createEndereco("06663000", "Rua tres", "100", "", "Setor A", "Sao Paulo",
+				"SP");
+		PessoaJuridica pessoaJuridica = pessoaJuridicaService.createPessoaPJIfNotFound("Residencial Parque das Rosas",
+				"Fatima Aparecida", "61057867000178", Arrays.asList(endereco));
 
+		Administrador administrador = administradorService.findByPessoaId(new Long(1));
+
+		Condominio condominio = condominioService
+				.save(new Condominio(pessoaJuridica, "Residencial", "V", administrador, true));
+
+		blocoService.save(Arrays.asList(new Bloco("A", condominio), new Bloco("B", condominio)));
+		
 	}
 
 	private void initPrivilegesAndRoles() {

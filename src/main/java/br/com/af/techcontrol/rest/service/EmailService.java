@@ -23,8 +23,8 @@ public class EmailService {
 		return repository.save(email);
 	}
 
-	public Email findOne(Long emailId) {
-		return repository.findOne(emailId);
+	public Email findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 	public void delete(Long id) {

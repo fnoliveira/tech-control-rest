@@ -23,8 +23,8 @@ public class TelefoneService {
 		return repository.save(telefone);
 	}
 
-	public Telefone findOne(Long telefoneId) {
-		return repository.findOne(telefoneId);
+	public Telefone findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 	public void delete(Long id) {

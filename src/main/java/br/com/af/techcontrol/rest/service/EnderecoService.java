@@ -22,8 +22,8 @@ public class EnderecoService {
 		return repository.findAll();
 	}
 
-	public Endereco findById(Long enderecoId) {
-		return repository.findOne(enderecoId);
+	public Endereco findById(Long id) {
+		return repository.findOne(id);
 	}
 
 	public void delete(Long id) {

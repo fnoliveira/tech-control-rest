@@ -43,9 +43,10 @@ public class UserService {
 		return repository.save(user);
 	}
 
-	public User findByPessoaIdAndUsername(Long pessoaId, String username) {
-		return repository.findByPessoaIdAndUsername(pessoaId, username);
+	public User findByPessoaIdAndUsername(Long id, String username) {
+		return repository.findByPessoaIdAndUsername(id, username);
 	}
+	
 	public void createUserIfNotFound(Pessoa pessoa, String username, String password, String roleName) {
 
 		Role role = roleService.findByName(roleName);

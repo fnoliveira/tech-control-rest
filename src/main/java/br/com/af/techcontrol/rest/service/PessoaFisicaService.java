@@ -25,16 +25,16 @@ public class PessoaFisicaService {
 		return repository.findAll();
 	}
 
-	public PessoaFisica findOne(Long pessoaFisicaId) {
-		return repository.findOne(pessoaFisicaId);
+	public PessoaFisica findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 	public PessoaFisica findByCpf(String cpf) {
 		return repository.findByCpf(cpf);
 	}
 
-	public void delete(Long pessoaFisicaId) {
-		repository.delete(pessoaFisicaId);
+	public void delete(Long id) {
+		repository.delete(id);
 	}
 
 	public PessoaFisica createPessoaPFIfNotFound(String nome, String cpf, String sexo, LocalDate datanascimento,

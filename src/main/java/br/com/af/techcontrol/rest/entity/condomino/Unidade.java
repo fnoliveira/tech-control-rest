@@ -32,6 +32,12 @@ public class Unidade extends BaseEntityAudit {
 	@NonNull
 	private String nome;
 
+	@ManyToOne
+	@JoinColumn(name = "bloco_id")
+	private Bloco bloco;
+
+	private Boolean isEnable;
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "unidade")
 	private List<Condomino> condominos;
 
@@ -53,9 +59,4 @@ public class Unidade extends BaseEntityAudit {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "unidade")
 	private List<Reserva> reservas;
 
-	private Boolean isEnable;
-
-	@ManyToOne
-	@JoinColumn(name = "bloco_id")
-	private Bloco bloco;
 }

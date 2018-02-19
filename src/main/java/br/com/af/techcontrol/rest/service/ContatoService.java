@@ -34,12 +34,12 @@ public class ContatoService {
 		return repository.findAll();
 	}
 
-	public Contato findOne(Long contatoId) {
-		return repository.findOne(contatoId);
+	public Contato findOne(Long id) {
+		return repository.findOne(id);
 	}
 
-	public Contato findByPessoaId(Long pessoaId) {
-		return repository.findByPessoaId(pessoaId);
+	public Contato findByPessoaId(Long id) {
+		return repository.findByPessoaId(id);
 	}
 
 	public void delete(Long id) {

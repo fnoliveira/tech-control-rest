@@ -24,8 +24,8 @@ public class PessoaJuridicaService {
 		return repository.save(pessoaJuridica);
 	}
 
-	public PessoaJuridica findOne(Long pessoaJuridicaId) {
-		return repository.findOne(pessoaJuridicaId);
+	public PessoaJuridica findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 	public PessoaJuridica findByNomeFantasia(String nome) {
@@ -40,8 +40,8 @@ public class PessoaJuridicaService {
 		return repository.findByCnpj(cnpj);
 	}
 
-	public void delete(Long pessoaJuridicaId) {
-		repository.delete(pessoaJuridicaId);
+	public void delete(Long id) {
+		repository.delete(id);
 	}
 	
 	public PessoaJuridica createPessoaPJIfNotFound(String nomefantasia, String razaosocial, String cnpj,

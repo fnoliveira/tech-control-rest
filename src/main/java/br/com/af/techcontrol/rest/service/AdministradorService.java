@@ -22,11 +22,16 @@ public class AdministradorService {
 		return repository.save(administrador);
 	}
 
-	public Administrador findOne(Long administradorId) {
-		return repository.findOne(administradorId);
+	public Administrador findOne(Long id) {
+		return repository.findOne(id);
 	}
 
 	public void delete(Long id) {
 		repository.delete(id);
 	}
+	
+	public Administrador findByPessoaId(Long id) {
+		return repository.findByPessoaId(id);
+	}
+	
 }
