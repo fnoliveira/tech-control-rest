@@ -21,6 +21,7 @@ import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.condominio.Administrador;
 import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
+import br.com.af.techcontrol.rest.entity.condomino.Unidade;
 import br.com.af.techcontrol.rest.service.AdministradorService;
 import br.com.af.techcontrol.rest.service.BlocoService;
 import br.com.af.techcontrol.rest.service.CondominioService;
@@ -137,7 +138,24 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		Condominio condominio = condominioService
 				.save(new Condominio(pessoaJuridica, "Residencial", "V", administrador, true));
 
+		
 		blocoService.save(Arrays.asList(new Bloco("A", condominio), new Bloco("B", condominio)));
+		
+	}
+	
+	
+	private void createUnidade() {
+		
+		PessoaJuridica pj = pessoaJuridicaService.findByCnpj("61057867000178");
+		
+		Condominio condominio =  condominioService.findByPessoaId(pj.getId());
+		
+		List<Bloco> blocos = condominio.getBlocos();
+		
+		for (Bloco bloco : blocos) {
+			Unidade unidade = 
+		}
+		
 		
 	}
 

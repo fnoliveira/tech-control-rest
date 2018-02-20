@@ -8,4 +8,5 @@ public interface CondominioRepository extends JpaRepository<Condominio, Long> {
 
 	Condominio findByPessoaId(Long id);
 
+	 
 }
