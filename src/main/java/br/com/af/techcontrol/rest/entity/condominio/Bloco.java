@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -33,11 +32,7 @@ public class Bloco extends BaseEntityAudit {
 	@NotBlank
 	private String nome;
 
-	@NonNull
-	@ManyToOne
-	@JoinColumn(name = "condominio_id")
-	private Condominio condominio;
-
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "bloco")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "bloco_id")
 	private List<Unidade> unidades;
 }

@@ -12,6 +12,7 @@ import br.com.af.techcontrol.rest.entity.base.Role;
 import br.com.af.techcontrol.rest.repository.RoleRepository;
 
 @Service
+@Transactional
 public class RoleService {
 
 	@Autowired
@@ -21,7 +22,7 @@ public class RoleService {
 		return repository.findByName(name);
 	}
 	
-	@Transactional
+	
 	public Role createRoleIfNotFound(String name, Collection<Privilege> privileges) {
 
 		Role role = findByName(name);

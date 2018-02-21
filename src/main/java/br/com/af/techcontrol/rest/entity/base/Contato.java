@@ -5,35 +5,35 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Contato extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
-
-	@NonNull
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "pessoa_id")
-	Pessoa pessoa;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contato")
+	@NonNull
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "contatos_telefones", 
+		joinColumns = @JoinColumn(name = "contato_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(name = "telefone_id",
+		referencedColumnName = "id"))
 	private List<Telefone> telefones;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contato")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="contato_id")
 	private List<Email> emails;
 
 }

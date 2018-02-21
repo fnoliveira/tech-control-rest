@@ -38,39 +38,9 @@ public class ContatoService {
 		return repository.findOne(id);
 	}
 
-	public Contato findByPessoaId(Long id) {
-		return repository.findByPessoaId(id);
-	}
-
 	public void delete(Long id) {
 		repository.delete(id);
 	}
 
-	public Contato createContatoIfNotFound(Pessoa pessoa) {
-		Contato contato = findByPessoaId(pessoa.getId());
-
-		if (contato == null) {
-			contato = new Contato(pessoa);
-			return save(contato);
-		}
-
-		return contato;
-	}
-
-	public void createContatoIfNotFound(Pessoa pessoa, List<Telefone> telefones, List<Email> emails) {
-
-		Contato contato = createContatoIfNotFound(pessoa);
-
-		for (Email email : emails) {
-			email.setContato(contato);
-			emailService.save(email);
-		}
-
-		for (Telefone telefone : telefones) {
-			telefone.setContato(contato);
-			telefoneService.save(telefone);
-		}
-
-	}
 
 }

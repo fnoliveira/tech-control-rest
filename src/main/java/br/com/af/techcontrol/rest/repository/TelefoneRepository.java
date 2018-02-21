@@ -6,6 +6,6 @@ import br.com.af.techcontrol.rest.entity.base.Telefone;
 
 public interface TelefoneRepository extends JpaRepository<Telefone, Long>{
 
-	public Telefone findByContatoIdAndDddAndNumero(Long contatoId, String ddd, String numero);
+	public Telefone findByDddAndNumero(Long contatoId, String ddd, String numero);
 	
 }

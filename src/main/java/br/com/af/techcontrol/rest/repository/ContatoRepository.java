@@ -6,6 +6,5 @@ import br.com.af.techcontrol.rest.entity.base.Contato;
 
 public interface ContatoRepository extends JpaRepository<Contato, Long>{
 
-	public Contato findByPessoaId(Long pessoaId);
 	
 }

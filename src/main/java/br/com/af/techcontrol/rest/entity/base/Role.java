@@ -1,8 +1,8 @@
 package br.com.af.techcontrol.rest.entity.base;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -28,12 +28,13 @@ public class Role extends BaseEntity {
 	@NonNull
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "roles")
-	private Collection<User> users;
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-	private Collection<Privilege> privileges;
+	@ManyToMany
+	@JoinTable(
+			name = "roles_privileges", joinColumns = @JoinColumn(
+					name = "role_id", referencedColumnName = "id"), 
+			inverseJoinColumns = @JoinColumn(
+					name = "privilege_id", referencedColumnName = "id"))
+	private Collection<Privilege> privileges = new ArrayList<Privilege>();
 
 	
 }

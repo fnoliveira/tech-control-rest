@@ -9,12 +9,13 @@ import br.com.af.techcontrol.rest.entity.base.Privilege;
 import br.com.af.techcontrol.rest.repository.PrivilegeRepository;
 
 @Service
+@Transactional
 public class PrivilegeService {
 
 	@Autowired
 	PrivilegeRepository repository;
 
-	@Transactional
+	
 	public Privilege createPrivilegeIfNotFound(String name) {
 		
 		Privilege privilege = repository.findByName(name);

@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.rest.entity.base;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -44,13 +45,14 @@ public abstract class Pessoa extends BaseEntityAudit {
 		joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "endereco_id",
 		referencedColumnName = "id"))
-	private Collection<Endereco> enderecos;
+	private Collection<Endereco> enderecos = new ArrayList<Endereco>();
 
 	@Size(min = 3, max = 255)
 	@Column(length = 255)
 	private String observacao;
 
-	@OneToOne(mappedBy="pessoa")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="contato_id")
 	private Contato contato;
 	
 

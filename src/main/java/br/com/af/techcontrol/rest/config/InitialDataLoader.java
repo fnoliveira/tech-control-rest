@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import br.com.af.techcontrol.rest.entity.base.Contato;
 import br.com.af.techcontrol.rest.entity.base.Email;
 import br.com.af.techcontrol.rest.entity.base.Endereco;
 import br.com.af.techcontrol.rest.entity.base.PessoaFisica;
@@ -31,6 +32,7 @@ import br.com.af.techcontrol.rest.service.PessoaFisicaService;
 import br.com.af.techcontrol.rest.service.PessoaJuridicaService;
 import br.com.af.techcontrol.rest.service.PrivilegeService;
 import br.com.af.techcontrol.rest.service.RoleService;
+import br.com.af.techcontrol.rest.service.UnidadeService;
 import br.com.af.techcontrol.rest.service.UserService;
 
 @Component
@@ -68,6 +70,9 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private ContatoService contatoService;
 
+	@Autowired
+	private UnidadeService unidadeService;
+
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -77,88 +82,87 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		initPrivilegesAndRoles();
 
 		createAdministradorPJ();
-
 		createAdministradorPF();
-
 		createCondominio();
+		createUnidade();
 		
 		alreadySetup = true;
 	}
 
 	private void createAdministradorPJ() {
-		Endereco enderecoMatriz = enderecoService.createEndereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo",
-				"SP");
-		Endereco enderecoFilial = enderecoService.createEndereco("06663045", "Rua dois", "90", "", "Setor E",
-				"Sao Paulo", "SP");
-		PessoaJuridica pessoaJuridica = pessoaJuridicaService.createPessoaPJIfNotFound("Passos Adm", "Jose Passos ltda",
-				"24540435000197", Arrays.asList(enderecoMatriz, enderecoFilial));
 
-		contatoService.createContatoIfNotFound(pessoaJuridica,
+		Endereco enderecoA = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR", true);
+
+		Endereco enderecoB = new Endereco("06663045", "Rua dois", "90", "", "Setor E", "Sao Paulo", "SP", "BR", true);
+
+		Contato contato = new Contato(
 				Arrays.asList(new Telefone("Celular", "11", "123451234", true),
 						new Telefone("Empresa", "11", "34343232", true)),
 				Arrays.asList(new Email("Comercial", "jose@passos.com.br", true, true),
 						new Email("SAC", "sac@passos.com.br", false, true)));
 
-		userService.createUserIfNotFound(pessoaJuridica, "adminpj", "123456", "ROLE_ADMIN");
+		PessoaJuridica pessoaJuridica = pessoaJuridicaService.createPessoaPJ("Passos Adm", "Jose Passos ltda",
+				"24540435000197", Arrays.asList(enderecoA, enderecoB), contato);
 
 		Administrador administrador = new Administrador(pessoaJuridica, true);
 
 		administradorService.save(administrador);
+
+		userService.createUserIfNotFound(pessoaJuridica, "adminpj", "123456", "ROLE_ADMIN");
 	}
 
 	private void createAdministradorPF() {
 
-		Endereco endereco = enderecoService.createEndereco("06663190", "Rua um", "60", "", "Setor D", "Sao Paulo",
-				"SP");
+		Endereco endereco = new Endereco("06663190", "Rua um", "60", "", "Setor D", "Sao Paulo", "SP", "BR", true);
 
-		PessoaFisica pessoaFisica = pessoaFisicaService.createPessoaPFIfNotFound("Jose da Silva", "31406826898", "M",
-				LocalDate.of(1985, 04, 03), Arrays.asList(endereco));
-
-		contatoService.createContatoIfNotFound(pessoaFisica,
+		Contato contato = new Contato(
 				Arrays.asList(new Telefone("Residencial", "11", "41411966", true),
 						new Telefone("Celular", "11", "947010120", true)),
 				Arrays.asList(new Email("Pessoal", "jose@bol.com", true, true)));
 
-		userService.createUserIfNotFound(pessoaFisica, "adminpf", "123456", "ROLE_ADMIN");
+		PessoaFisica pessoaFisica = pessoaFisicaService.createPessoaPF("Jose da Silva", "31406826898", "M",
+				LocalDate.of(1985, 04, 03), Arrays.asList(endereco), contato);
 
 		Administrador administrador = new Administrador(pessoaFisica, true);
 
 		administradorService.save(administrador);
+		userService.createUserIfNotFound(pessoaFisica, "adminpf", "123456", "ROLE_ADMIN");
 	}
 
 	private void createCondominio() {
 
-		Endereco endereco = enderecoService.createEndereco("06663000", "Rua tres", "100", "", "Setor A", "Sao Paulo",
-				"SP");
-		PessoaJuridica pessoaJuridica = pessoaJuridicaService.createPessoaPJIfNotFound("Residencial Parque das Rosas",
-				"Fatima Aparecida", "61057867000178", Arrays.asList(endereco));
+		Endereco endereco = new Endereco("06663000", "Rua tres", "100", "", "Setor A", "Sao Paulo", "SP", "BR", true);
 
-		Administrador administrador = administradorService.findByPessoaId(new Long(1));
+		Contato contato = new Contato(Arrays.asList(new Telefone("Residencial", "11", "41411966", true)),
+				Arrays.asList(new Email("Pessoal", "josevaldo@bol.com", true, true)));
 
-		Condominio condominio = condominioService
-				.save(new Condominio(pessoaJuridica, "Residencial", "V", administrador, true));
+		PessoaJuridica pessoaJuridica = pessoaJuridicaService.createPessoaPJ("Residencial Parque das Rosas",
+				"Fatima Aparecida", "61057867000178", Arrays.asList(endereco), contato);
 
-		
-		blocoService.save(Arrays.asList(new Bloco("A", condominio), new Bloco("B", condominio)));
-		
+		condominioService.save(new Condominio(pessoaJuridica, "Residencial", "V", true,
+				Arrays.asList(new Bloco("A"), new Bloco("B"))));
 	}
-	
-	
+
 	private void createUnidade() {
 		
-		PessoaJuridica pj = pessoaJuridicaService.findByCnpj("61057867000178");
-		
-		Condominio condominio =  condominioService.findByPessoaId(pj.getId());
-		
+		Condominio condominio = condominioService.findByCNPJ("61057867000178");
+				
 		List<Bloco> blocos = condominio.getBlocos();
 		
 		for (Bloco bloco : blocos) {
-			Unidade unidade = 
+			List<Unidade> unidades = new ArrayList<Unidade>();
+			unidades.add(new Unidade("110",true));
+			unidades.add(new Unidade("120",true));
+			unidades.add(new Unidade("130",true));
+			unidades.add(new Unidade("140",true));
+			
+			bloco.setUnidades(unidades);
+			blocoService.save(bloco);
 		}
 		
-		
 	}
-
+	
+	
 	private void initPrivilegesAndRoles() {
 
 		// == create initial privileges

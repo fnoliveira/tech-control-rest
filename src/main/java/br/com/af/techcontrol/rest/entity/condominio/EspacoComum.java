@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
@@ -34,13 +33,11 @@ public class EspacoComum extends BaseEntityAudit {
 
 	private boolean isPermiteReserva;
 
-	@ManyToOne
-	@JoinColumn(name = "condominio_id")
-	private Condominio condominio;
-	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "espacoComum_id")
+	private List<Reserva> reservas;
+
 	@NonNull
 	private Boolean isEnable;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "espacoComum")
-	private List<Reserva> reservas;
 }

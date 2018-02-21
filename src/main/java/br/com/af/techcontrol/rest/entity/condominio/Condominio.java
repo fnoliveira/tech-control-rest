@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -28,7 +27,7 @@ public class Condominio extends BaseEntityAudit {
 	private static final long serialVersionUID = 1L;
 
 	@NonNull
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
 
@@ -39,23 +38,23 @@ public class Condominio extends BaseEntityAudit {
 	private String tipoCondominio;
 
 	@NonNull
-	@ManyToOne
-	@JoinColumn(name = "administrador_id")
-	private Administrador administrador;
-
-	@NonNull
 	private Boolean isEnable;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	@NonNull
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "condominio_id")
 	private List<Bloco> blocos;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "condominio_id")
 	private List<EspacoComum> espacos;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "condominio_id")
 	private List<Funcionario> funcionarios;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "condominio")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "condominio_id")
 	private List<Avisos> avisos;
 
 }

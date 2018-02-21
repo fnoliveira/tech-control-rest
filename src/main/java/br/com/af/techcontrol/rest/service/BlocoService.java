@@ -29,10 +29,6 @@ public class BlocoService {
 		return repository.findOne(id);
 	}
 	
-	public Bloco findByNomeAndCondominioId(String nome, Long id) {
-		return repository.findByNomeAndCondominioId(nome, id);
-	}
-
 	public void delete(Long id) {
 		repository.delete(id);
 	}
