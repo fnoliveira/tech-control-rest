@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.rest.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,75 +16,38 @@ public class ReservaService {
 	@Autowired
 	ReservaRepository reservaRepository;
 	
-	public List<ReservaDto> findByUnidadeId(Long unidadeId){
-		
-		List<ReservaDto> retorno = new ArrayList<ReservaDto>();
+	public List<Reserva> findByUnidadeId(Long unidadeId){
 		
 		List<Reserva> reservas = reservaRepository.findByUnidadeId(unidadeId);
-		if(reservas != null) {
-			for (Reserva reserva : reservas) {
-				retorno.add(new ReservaDto(reserva.getId().intValue(), 
-											reserva.getTitle(), 
-											reserva.getDescription(), 
-											false, 
-											reserva.getStart(), 
-											reserva.getEnd(), 
-											null,
-											reserva.getUnidade().getNome(),
-											reserva.getUnidade().getBloco().getNome(),
-											reserva.getEspacoComum().getNome()));
-			}
-		}
-		
-		return retorno;
+				
+		return reservas;
 		
 	}
 	
-	public List<ReservaDto> findByEspacoComunId(Long espacoComunId){
+	public List<Reserva> findByEspacoComunId(Long espacoComunId){
 		
-		List<ReservaDto> retorno = new ArrayList<ReservaDto>();
 		
 		List<Reserva> reservas = reservaRepository.findByEspacoComunId(espacoComunId);
-		if(reservas != null) {
-			for (Reserva reserva : reservas) {
-				retorno.add(new ReservaDto(reserva.getId().intValue(), 
-											reserva.getTitle(), 
-											reserva.getDescription(), 
-											false, 
-											reserva.getStart(), 
-											reserva.getEnd(), 
-											null, 
-											reserva.getUnidade().getNome(),
-											reserva.getUnidade().getBloco().getNome(),
-											reserva.getEspacoComum().getNome()));
-			}
-		}
 		
-		return retorno;
+		return reservas;
 		
 	}
 	
-	public List<ReservaDto> findByDateIniAndDateFim(Date start, Date end){
+	public List<Reserva> findByDateIniAndDateFim(LocalDateTime start, LocalDateTime end){
 		
-		List<ReservaDto> retorno = new ArrayList<ReservaDto>();
 		
 		List<Reserva> reservas = reservaRepository.findByDateIniAndDateFim(start, end);
-		if(reservas != null) {
-			for (Reserva reserva : reservas) {
-				retorno.add(new ReservaDto(reserva.getId().intValue(), 
-											reserva.getTitle(), 
-											reserva.getDescription(), 
-											false, 
-											reserva.getStart(), 
-											reserva.getEnd(), 
-											null, 
-											reserva.getUnidade().getNome(),
-											reserva.getUnidade().getBloco().getNome(),
-											reserva.getEspacoComum().getNome()));
-			}
-		}
 		
-		return retorno;
+		return reservas;
+		
+	}
+	
+	public List<Reserva> findByEspacoComunIdAndDateIniAndDateFim(Long espacoComunId, LocalDateTime start, LocalDateTime end){
+		
+		
+		List<Reserva> reservas = reservaRepository.findByEspacoComunIdAndDateIniAndDateFim(espacoComunId, start, end);
+		
+		return reservas;
 		
 	}
 	

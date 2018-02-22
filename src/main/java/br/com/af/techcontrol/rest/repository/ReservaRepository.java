@@ -1,6 +1,6 @@
 package br.com.af.techcontrol.rest.repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +13,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 	
 	List<Reserva> findByEspacoComunId(Long espacoComunId);
 	
-	List<Reserva> findByDateIniAndDateFim(Date start, Date end);
+	List<Reserva> findByDateIniAndDateFim(LocalDateTime start, LocalDateTime end);
+	
+	List<Reserva> findByEspacoComunIdAndDateIniAndDateFim(Long espacoComunId,LocalDateTime start, LocalDateTime end);
 	
 
 }
