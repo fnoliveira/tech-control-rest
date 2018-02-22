@@ -1,5 +1,7 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntity;
@@ -21,8 +23,8 @@ public class Reserva extends BaseEntity {
 
 	private String description;
 
-	private String start;
+	private LocalDateTime start;
 
-	private String end;
+	private LocalDateTime end;
 
 }

@@ -18,5 +18,14 @@ public class Animal extends BaseEntityAudit {
 	private static final long serialVersionUID = 1L;
 
 	private String nome;
+	
+	private String raca;
+	
+	private String cor;
+	
+	private String sexo;
+	
+	private String foto;
+	
 
 }

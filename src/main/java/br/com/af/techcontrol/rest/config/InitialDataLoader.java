@@ -162,7 +162,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		
 	}
 	
-	
 	private void initPrivilegesAndRoles() {
 
 		// == create initial privileges
