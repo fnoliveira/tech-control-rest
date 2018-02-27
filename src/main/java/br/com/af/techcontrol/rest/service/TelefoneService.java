@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.af.techcontrol.rest.entity.base.Contato;
 import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.repository.TelefoneRepository;
 

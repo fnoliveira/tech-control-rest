@@ -1,34 +1,26 @@
 package br.com.af.techcontrol.rest.response;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Response<T> {
-	
+		
 	private T data;
-	private List<String> erros;
+	
+	private ApiStatusResponse status;
 	
 	public Response(T data) {
 		this.data = data;
 	}
 	
-	public Response(List<String> erros) {
-		this.erros = erros;
-	}
-
-	public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
-	}
-
-	public List<String> getErros() {
-		return erros;
-	}
-
-	public void setErros(List<String> erros) {
-		this.erros = erros;
+	public Response(ApiStatusResponse status) {
+		this.status= status;
 	}
 
 }

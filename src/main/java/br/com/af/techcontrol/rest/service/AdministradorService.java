@@ -1,12 +1,11 @@
 package br.com.af.techcontrol.rest.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.af.techcontrol.rest.dto.AdministradorInfo;
 import br.com.af.techcontrol.rest.entity.condominio.Administrador;
 import br.com.af.techcontrol.rest.repository.AdministradorRepository;
 
@@ -15,26 +14,15 @@ import br.com.af.techcontrol.rest.repository.AdministradorRepository;
 public class AdministradorService {
 
 	@Autowired
-	AdministradorRepository repository;
+	AdministradorRepository administradorRepository;
 
-	public List<Administrador> findAll() {
-		return repository.findAll();
-	}
+	public void save(Administrador administrador) {
+		administradorRepository.save(administrador);
 
-	public Administrador save(Administrador administrador) {
-		return repository.save(administrador);
 	}
 
-	public Administrador findOne(Long id) {
-		return repository.findOne(id);
+	public AdministradorInfo findByNameProjection(String nome) {
+		return administradorRepository.findByNameProjection(nome);
 	}
 
-	public void delete(Long id) {
-		repository.delete(id);
-	}
-	
-	public Administrador findByPessoaId(Long id) {
-		return repository.findByPessoaId(id);
-	}
-	
 }

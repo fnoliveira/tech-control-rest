@@ -42,19 +42,19 @@ public class Condominio extends BaseEntityAudit {
 
 	@NonNull
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "condominio_id")
+	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<Bloco> blocos;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "condominio_id")
+	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<EspacoComum> espacos;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "condominio_id")
+	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<Funcionario> funcionarios;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "condominio_id")
+	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<Avisos> avisos;
 
 }

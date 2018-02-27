@@ -3,10 +3,15 @@ package br.com.af.techcontrol.rest.entity.base;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,8 +32,9 @@ public class Role extends BaseEntity {
 	
 	@NonNull
 	private String name;
-	
-	@ManyToMany
+
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "roles_privileges", joinColumns = @JoinColumn(
 					name = "role_id", referencedColumnName = "id"), 

@@ -29,12 +29,12 @@ public class Administrador extends BaseEntityAudit {
 
 	@NonNull
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pessoa_id")
+	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="administrador_id")
+	@JoinColumn(name="administrador_id", referencedColumnName = "id")
 	private List<Condominio> condominios;
 
 	@NonNull

@@ -12,10 +12,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,18 +25,24 @@ public class EspacoComum extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
+	@NonNull
 	private String nome;
 
+	@NonNull
 	private String descricao;
 
-	private int lotacao;
+	@NonNull
+	private Integer lotacao;
 
-	private boolean isPermiteInadimplente;
+	@NonNull
+	private Boolean isPermiteInadimplente;
 
-	private boolean isPermiteReserva;
+	@NonNull
+	private Boolean isPermiteReserva;
 
+	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "espacoComum_id")
+	@JoinColumn(name = "espacoComum_id", referencedColumnName = "id")
 	private List<Reserva> reservas;
 
 	@NonNull

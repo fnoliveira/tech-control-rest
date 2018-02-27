@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
-import br.com.af.techcontrol.rest.entity.condomino.Unidade;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +32,6 @@ public class Bloco extends BaseEntityAudit {
 	private String nome;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bloco_id")
+	@JoinColumn(name = "bloco_id", referencedColumnName = "id")
 	private List<Unidade> unidades;
 }

@@ -22,7 +22,7 @@ public class Condomino extends BaseEntityAudit {
 	private static final long serialVersionUID = 1L;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pessoa_id")
+	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
 	private boolean isProprietario;

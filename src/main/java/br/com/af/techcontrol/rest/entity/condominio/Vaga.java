@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity.condomino;
+package br.com.af.techcontrol.rest.entity.condominio;
 
 import javax.persistence.Entity;
 

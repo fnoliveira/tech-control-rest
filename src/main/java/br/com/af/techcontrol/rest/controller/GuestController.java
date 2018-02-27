@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.af.techcontrol.rest.dto.UserDto;
+import br.com.af.techcontrol.rest.dto.UserInfo;
+import br.com.af.techcontrol.rest.response.ApiStatusResponse;
+import br.com.af.techcontrol.rest.response.Response;
 import br.com.af.techcontrol.rest.service.UserService;
-import br.com.af.techcontrol.rest.util.CustomErrorType;
 
 @RestController
 @RequestMapping("/guest")
@@ -19,17 +20,17 @@ public class GuestController {
 	@Autowired
 	UserService userService;
 
-	
 	@GetMapping(value = "/{username}")
-	public ResponseEntity<?> getUser(@PathVariable("username") String username) {
+	public ResponseEntity<Response<UserInfo>> retrieveUserInfo(@PathVariable("username") String username) {
 
-		UserDto user = userService.findByUsername(username);
+		UserInfo user = userService.findByUsernameProjection(username);
 
 		if (user == null) {
-			return new ResponseEntity<Object>(new CustomErrorType("User with username " + username + " not found"),
-					HttpStatus.NOT_FOUND);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response<UserInfo>(
+					new ApiStatusResponse(HttpStatus.NOT_FOUND.value(), 4041, "User with username " + username + " not found")));
 		}
-		return new ResponseEntity<UserDto>(user, HttpStatus.OK);
+
+		return ResponseEntity.ok(new Response<UserInfo>(user, new ApiStatusResponse(HttpStatus.OK.value(), 2001,"Sucesso")));
 	}
 
 }

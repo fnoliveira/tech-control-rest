@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.config;
+package br.com.af.techcontrol.rest.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
