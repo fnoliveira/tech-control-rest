@@ -1,5 +1,7 @@
 package br.com.af.techcontrol.rest.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +23,16 @@ public class AdministradorController {
 	AdministradorService administradorService;
 
 	@GetMapping(value = "/{nome}")
-	public ResponseEntity<Response<AdministradorInfo>> retrieveUserInfo(@PathVariable("nome") String nome) {
+	public ResponseEntity<Response<List<AdministradorInfo>>> retrieveUserInfo(@PathVariable("nome") String nome) {
 
-		AdministradorInfo admin = administradorService.findByNameProjection(nome);
+		List<AdministradorInfo> admin = administradorService.findByNameProjection(nome);
 
 		if (admin == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response<AdministradorInfo>(
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response<List<AdministradorInfo>>(
 					new ApiStatusResponse(HttpStatus.NOT_FOUND.value(), 4041, "Administrador with nome " + nome + " not found")));
 		}
 
-		return ResponseEntity.ok(new Response<AdministradorInfo>(admin, new ApiStatusResponse(HttpStatus.OK.value(), 2001,"Sucesso")));
+		return ResponseEntity.ok(new Response<List<AdministradorInfo>>(admin, new ApiStatusResponse(HttpStatus.OK.value(), 2001,"Sucesso")));
 	}
 
 }

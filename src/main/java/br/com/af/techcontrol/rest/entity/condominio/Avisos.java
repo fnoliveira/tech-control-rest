@@ -3,31 +3,51 @@ package br.com.af.techcontrol.rest.entity.condominio;
 import javax.persistence.Entity;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Avisos extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
+	@NonNull
+	@Getter
+	@Setter
 	private String destinatario;
 
+	@NonNull
+	@Getter
+	@Setter
 	private String titulo;
 
+	@NonNull
+	@Getter
+	@Setter
 	private String aviso;
 
+	@NonNull
+	@Getter
+	@Setter
 	private String anexo;
 
-	private boolean isUrgente;
+	@NonNull
+	@Getter
+	@Setter
+	private Boolean isUrgente;
 
-	private boolean isFixo;
+	@NonNull
+	@Getter
+	@Setter
+	private Boolean isFixo;
 
-
+	@NonNull
+	@Getter
+	@Setter
+	private Boolean isEnable;
 }

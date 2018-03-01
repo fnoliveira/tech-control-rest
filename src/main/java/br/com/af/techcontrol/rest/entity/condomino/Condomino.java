@@ -7,24 +7,34 @@ import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Condomino extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
+	@NonNull
+	@Getter
+	@Setter
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
-	private boolean isProprietario;
+	@NonNull
+	@Getter
+	@Setter
+	private Boolean isProprietario;
+	
+	@NonNull
+	@Getter
+	@Setter
+	private Boolean isEnable;
 
 }

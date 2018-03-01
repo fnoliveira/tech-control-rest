@@ -14,28 +14,38 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class User extends BaseEntity{
+public class User extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
+	@NonNull
+	@Getter
+	@Setter
 	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 	
+	@NonNull
+	@Getter
+	@Setter
 	private String username;
     
+	@NonNull
+	@Getter
+	@Setter
     private String password;
     
+	@Getter
+	@Setter
     @Fetch(FetchMode.SELECT)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable( 
@@ -46,6 +56,9 @@ public class User extends BaseEntity{
           name = "role_id", referencedColumnName = "id")) 
     private Collection<Role> roles = new ArrayList<Role>();
 
-    private Boolean isEnable;
+	@NonNull
+	@Getter
+	@Setter
+	private Boolean isEnable;
 
 }

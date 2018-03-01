@@ -37,10 +37,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	@Autowired
 	private PessoaService pessoaService;
-	
+
 	@Autowired
 	AdministradorService administradorService;
-	
+
 	@Autowired
 	private BlocoService blocoService;
 
@@ -50,11 +50,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private PrivilegeService privilegeService;
 
-
 	@Autowired
 	private EnderecoService enderecoService;
-
-
 
 	@Autowired
 	private UnidadeService unidadeService;
@@ -68,81 +65,81 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		initPrivilegesAndRoles();
 
 		createUserMaster();
-		
+
 		createAdministradorPJ();
-			
+
 		alreadySetup = true;
 	}
-	
+
 	private void createUserMaster() {
-		Pessoa pessoa = new Pessoa("Master",TipoPessoa.FISICA,"31406826898", null,null,null,"f@f.com",null);
-		User user = new User(pessoa, "master", "123456", null, true);
+		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898", "f@f.com", true);
+		User user = new User(pessoa, "master", "123456", true);
 		pessoa.setUser(user);
 		userService.createUserIfNotFound(user, "ROLE_MASTER");
 	}
-	
+
 	private void createAdministradorPJ() {
 
 		Endereco enderecoA = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR", true);
 		Endereco enderecoB = new Endereco("06663045", "Rua dois", "90", "", "Setor E", "Sao Paulo", "SP", "BR", true);
-				
-		Pessoa pessoa = new Pessoa("Passos Adm",TipoPessoa.JURIDICA,"24540435000197", null,
-				Arrays.asList(enderecoA, enderecoB),
-				Arrays.asList(new Telefone("Celular", "11", "123451234", true),	new Telefone("Empresa", "11", "34343232", true)),
-				"sac@passos.com.br",null);
+
+		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197", "sac@passos.com.br", true);
+		pessoa.setEnderecos(Arrays.asList(enderecoA, enderecoB));
+		pessoa.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true),
+				new Telefone("Empresa", "11", "34343232", true)));
 		
-		User user = new User(pessoa, "adm", "123456", null, true);
+		User user = new User(pessoa, "adm", "123456", true);
 		pessoa.setUser(user);
 		userService.createUserIfNotFound(user, "ROLE_ADMIN");
-		
+
 		Administrador administrador = new Administrador(pessoa, true);
 
 		administradorService.save(administrador);
-		
+
 	}
 
-	
+	/*
+	 * private void createCondominio() {
+	 * 
+	 * Endereco endereco = new Endereco("06663000", "Rua tres", "100", "",
+	 * "Setor A", "Sao Paulo", "SP", "BR", true);
+	 * 
+	 * Contato contato = new Contato(Arrays.asList(new Telefone("Residencial", "11",
+	 * "41411966", true)), Arrays.asList(new Email("Pessoal", "josevaldo@bol.com",
+	 * true, true)));
+	 * 
+	 * PessoaJuridica pessoaJuridica =
+	 * pessoaJuridicaService.createPessoaPJ("Residencial Parque das Rosas",
+	 * "Fatima Aparecida", "61057867000178", Arrays.asList(endereco), contato, new
+	 * User());
+	 * 
+	 * condominioService.save(new Condominio(pessoaJuridica, "Residencial", "V",
+	 * true, Arrays.asList(new Bloco("A"), new Bloco("B")))); }
+	 * 
+	 * private void createEspacoComum() { Condominio condominio =
+	 * condominioService.findByCNPJ("61057867000178");
+	 * condominio.setEspacos(Arrays.asList(new
+	 * EspacoComum("Salao de Festas","Local para festas dos condominos",20,true,true
+	 * ,true))); condominioService.save(condominio);
+	 * 
+	 * }
+	 * 
+	 * private void createUnidade() {
+	 * 
+	 * Condominio condominio = condominioService.findByCNPJ("61057867000178");
+	 * 
+	 * List<Bloco> blocos = condominio.getBlocos();
+	 * 
+	 * for (Bloco bloco : blocos) { List<Unidade> unidades = new
+	 * ArrayList<Unidade>(); unidades.add(new Unidade("110",true)); unidades.add(new
+	 * Unidade("120",true)); unidades.add(new Unidade("130",true)); unidades.add(new
+	 * Unidade("140",true));
+	 * 
+	 * bloco.setUnidades(unidades); blocoService.save(bloco); }
+	 * 
+	 * }
+	 */
 
-	/*private void createCondominio() {
-
-		Endereco endereco = new Endereco("06663000", "Rua tres", "100", "", "Setor A", "Sao Paulo", "SP", "BR", true);
-
-		Contato contato = new Contato(Arrays.asList(new Telefone("Residencial", "11", "41411966", true)),
-				Arrays.asList(new Email("Pessoal", "josevaldo@bol.com", true, true)));
-
-		PessoaJuridica pessoaJuridica = pessoaJuridicaService.createPessoaPJ("Residencial Parque das Rosas",
-				"Fatima Aparecida", "61057867000178", Arrays.asList(endereco), contato, new User());
-
-		condominioService.save(new Condominio(pessoaJuridica, "Residencial", "V", true,
-				Arrays.asList(new Bloco("A"), new Bloco("B"))));
-	}
-	
-	private void createEspacoComum() {
-		Condominio condominio = condominioService.findByCNPJ("61057867000178");
-		condominio.setEspacos(Arrays.asList(new EspacoComum("Salao de Festas","Local para festas dos condominos",20,true,true,true)));
-		condominioService.save(condominio);
-		
-	}
-
-	private void createUnidade() {
-		
-		Condominio condominio = condominioService.findByCNPJ("61057867000178");
-				
-		List<Bloco> blocos = condominio.getBlocos();
-		
-		for (Bloco bloco : blocos) {
-			List<Unidade> unidades = new ArrayList<Unidade>();
-			unidades.add(new Unidade("110",true));
-			unidades.add(new Unidade("120",true));
-			unidades.add(new Unidade("130",true));
-			unidades.add(new Unidade("140",true));
-			
-			bloco.setUnidades(unidades);
-			blocoService.save(bloco);
-		}
-		
-	}*/
-	
 	private void initPrivilegesAndRoles() {
 
 		// == create initial privileges

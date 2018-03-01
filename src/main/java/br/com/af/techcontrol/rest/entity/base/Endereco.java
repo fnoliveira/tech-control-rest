@@ -1,55 +1,63 @@
 package br.com.af.techcontrol.rest.entity.base;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Entity
-public class Endereco extends BaseEntity {
+public class Endereco extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String cep;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String logradouro;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String numero;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String complemento;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String bairro;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String cidade;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String uf;
 
 	@NonNull
+	@Getter
+	@Setter
 	private String pais;
 
 	@NonNull
+	@Getter
+	@Setter
 	private Boolean isEnable;
-	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "enderecos")
-    private List<Pessoa> pessoas;
+
 }

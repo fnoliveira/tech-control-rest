@@ -1,5 +1,7 @@
 package br.com.af.techcontrol.rest.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,8 @@ public class AdministradorService {
 
 	}
 
-	public AdministradorInfo findByNameProjection(String nome) {
-		return administradorRepository.findByNameProjection(nome);
+	public List<AdministradorInfo> findByNameProjection(String nome) {
+		return administradorRepository.findByPessoaNome(nome);
 	}
 
 }
