@@ -37,7 +37,6 @@ public class Bloco extends BaseEntityAudit {
 	@NotBlank
 	private String nome;
 
-	@NonNull
 	@Getter
 	@Setter
 	@OneToMany(cascade = CascadeType.ALL)

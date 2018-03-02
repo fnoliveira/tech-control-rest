@@ -1,11 +1,16 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import lombok.Getter;
@@ -46,12 +51,12 @@ public class EspacoComum extends BaseEntityAudit {
 	@Setter
 	private Boolean isPermiteReserva;
 
-	@NonNull
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "espacoComum_id", referencedColumnName = "id")
-	private List<Reserva> reservas;
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "espacoComum_reservas", joinColumns = @JoinColumn(name = "espacoComum_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "reserva_id", referencedColumnName = "id"))
+	private List<Reserva> reservas = new ArrayList<Reserva>();
 
 	@NonNull
 	@Getter

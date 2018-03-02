@@ -24,11 +24,11 @@ public class UnidadeService {
 	public List<Unidade> saveAll(List<Unidade> unidades) {
 		return repository.save(unidades);
 	}
-	
+
 	public Unidade save(Unidade unidades) {
 		return repository.save(unidades);
 	}
-	
+
 	public void save(List<Unidade> unidades) {
 		repository.save(unidades);
 	}
@@ -40,5 +40,5 @@ public class UnidadeService {
 	public void delete(Long id) {
 		repository.delete(id);
 	}
-	
+
 }

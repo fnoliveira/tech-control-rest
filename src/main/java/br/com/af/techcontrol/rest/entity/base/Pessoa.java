@@ -66,7 +66,7 @@ public class Pessoa extends BaseEntityAudit {
 	@NotBlank(message = "CPF/CNPJ é obrigatório")
 	@CPF(groups = CpfGroup.class)
 	@CNPJ(groups = CnpjGroup.class)
-	@Column(name = "cpf_cnpj")
+	@Column(name = "cpf_cnpj", unique = true)
 	private String cpfOuCnpj;
 
 	@Getter
@@ -92,6 +92,7 @@ public class Pessoa extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@Email(message = "E-mail inválido")
+	@Column(unique = true)
 	private String email;
 
 	@Getter

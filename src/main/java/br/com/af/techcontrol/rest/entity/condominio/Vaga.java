@@ -1,8 +1,12 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
+import br.com.af.techcontrol.rest.entity.condomino.Veiculo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -20,10 +24,16 @@ public class Vaga extends BaseEntityAudit {
 	@Getter
 	@Setter
 	private String nome;
-	
+
+	@Getter
+	@Setter
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "vaga_id", referencedColumnName = "id")
+	private Veiculo veiculo;
+
 	@NonNull
 	@Getter
 	@Setter
 	private Boolean isEnable;
-	
+
 }

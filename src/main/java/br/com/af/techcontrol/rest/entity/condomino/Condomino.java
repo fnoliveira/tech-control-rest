@@ -1,8 +1,11 @@
 package br.com.af.techcontrol.rest.entity.condomino;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
@@ -27,6 +30,13 @@ public class Condomino extends BaseEntityAudit {
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
+	@NonNull
+	@Getter
+	@Setter
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "condomino_id", referencedColumnName = "id")
+	private List<Animal> animais;
+	
 	@NonNull
 	@Getter
 	@Setter

@@ -17,11 +17,14 @@ import br.com.af.techcontrol.rest.entity.base.Privilege;
 import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.base.User;
 import br.com.af.techcontrol.rest.entity.condominio.Administrador;
+import br.com.af.techcontrol.rest.entity.condominio.Bloco;
+import br.com.af.techcontrol.rest.entity.condominio.Condominio;
+import br.com.af.techcontrol.rest.entity.condominio.Unidade;
 import br.com.af.techcontrol.rest.enums.TipoPessoa;
 import br.com.af.techcontrol.rest.service.AdministradorService;
 import br.com.af.techcontrol.rest.service.BlocoService;
+import br.com.af.techcontrol.rest.service.CondominioService;
 import br.com.af.techcontrol.rest.service.EnderecoService;
-import br.com.af.techcontrol.rest.service.PessoaService;
 import br.com.af.techcontrol.rest.service.PrivilegeService;
 import br.com.af.techcontrol.rest.service.RoleService;
 import br.com.af.techcontrol.rest.service.UnidadeService;
@@ -36,10 +39,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	private UserService userService;
 
 	@Autowired
-	private PessoaService pessoaService;
+	AdministradorService administradorService;
 
 	@Autowired
-	AdministradorService administradorService;
+	CondominioService condominioService;
 
 	@Autowired
 	private BlocoService blocoService;
@@ -68,6 +71,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		createAdministradorPJ();
 
+		createCondominio();
+
+		createBloco();
+
+		createUnidade();
+
 		alreadySetup = true;
 	}
 
@@ -87,7 +96,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		pessoa.setEnderecos(Arrays.asList(enderecoA, enderecoB));
 		pessoa.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true),
 				new Telefone("Empresa", "11", "34343232", true)));
-		
+
 		User user = new User(pessoa, "adm", "123456", true);
 		pessoa.setUser(user);
 		userService.createUserIfNotFound(user, "ROLE_ADMIN");
@@ -98,47 +107,32 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	}
 
-	/*
-	 * private void createCondominio() {
-	 * 
-	 * Endereco endereco = new Endereco("06663000", "Rua tres", "100", "",
-	 * "Setor A", "Sao Paulo", "SP", "BR", true);
-	 * 
-	 * Contato contato = new Contato(Arrays.asList(new Telefone("Residencial", "11",
-	 * "41411966", true)), Arrays.asList(new Email("Pessoal", "josevaldo@bol.com",
-	 * true, true)));
-	 * 
-	 * PessoaJuridica pessoaJuridica =
-	 * pessoaJuridicaService.createPessoaPJ("Residencial Parque das Rosas",
-	 * "Fatima Aparecida", "61057867000178", Arrays.asList(endereco), contato, new
-	 * User());
-	 * 
-	 * condominioService.save(new Condominio(pessoaJuridica, "Residencial", "V",
-	 * true, Arrays.asList(new Bloco("A"), new Bloco("B")))); }
-	 * 
-	 * private void createEspacoComum() { Condominio condominio =
-	 * condominioService.findByCNPJ("61057867000178");
-	 * condominio.setEspacos(Arrays.asList(new
-	 * EspacoComum("Salao de Festas","Local para festas dos condominos",20,true,true
-	 * ,true))); condominioService.save(condominio);
-	 * 
-	 * }
-	 * 
-	 * private void createUnidade() {
-	 * 
-	 * Condominio condominio = condominioService.findByCNPJ("61057867000178");
-	 * 
-	 * List<Bloco> blocos = condominio.getBlocos();
-	 * 
-	 * for (Bloco bloco : blocos) { List<Unidade> unidades = new
-	 * ArrayList<Unidade>(); unidades.add(new Unidade("110",true)); unidades.add(new
-	 * Unidade("120",true)); unidades.add(new Unidade("130",true)); unidades.add(new
-	 * Unidade("140",true));
-	 * 
-	 * bloco.setUnidades(unidades); blocoService.save(bloco); }
-	 * 
-	 * }
-	 */
+	private void createCondominio() {
+
+		Endereco enderecoCondominio = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR",
+				true);
+		Pessoa pessoaCondominio = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182",
+				"parquedasrosas@tech-control.com.br", true);
+		pessoaCondominio.setEnderecos(Arrays.asList(enderecoCondominio));
+		pessoaCondominio.setTelefones(Arrays.asList(new Telefone("Empresa", "11", "41414141", true)));
+
+		Condominio condominio = new Condominio();
+		condominio.setPessoa(pessoaCondominio);
+		condominio.setFinalidade("Residencial");
+		condominio.setTipoCondominio("vertical");
+		condominio.setIsEnable(true);
+		condominioService.save(condominio);
+
+	}
+
+	private void createBloco() {
+		blocoService.save(Arrays.asList(new Bloco("A", true), new Bloco("B", true)));
+	}
+
+	private void createUnidade() {
+		unidadeService.save(Arrays.asList(new Unidade("110", true), new Unidade("120", true), new Unidade("130", true),
+				new Unidade("140", true)));
+	}
 
 	private void initPrivilegesAndRoles() {
 
