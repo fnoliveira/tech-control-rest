@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.af.techcontrol.rest.dto.AdministradorInfo;
-import br.com.af.techcontrol.rest.entity.condominio.Administrador;
+import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
 import br.com.af.techcontrol.rest.repository.AdministradorRepository;
 
 @Service
@@ -20,11 +20,10 @@ public class AdministradorService {
 
 	public void save(Administrador administrador) {
 		administradorRepository.save(administrador);
-
 	}
 
 	public List<AdministradorInfo> findByNameProjection(String nome) {
-		return administradorRepository.findByPessoaNome(nome);
+		return administradorRepository.findByFuncionarioPessoaNome(nome);
 	}
 
 }

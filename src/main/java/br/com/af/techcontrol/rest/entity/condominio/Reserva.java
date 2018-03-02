@@ -4,49 +4,53 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
+import br.com.af.techcontrol.rest.entity.condomino.Condomino;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@RequiredArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class Reserva extends BaseEntityAudit {
 
 	private static final long serialVersionUID = 1L;
 
-	@NonNull
 	@Getter
 	@Setter
 	private String title;
 
-	@NonNull
 	@Getter
 	@Setter
 	private String description;
 
-	@NonNull
 	@Getter
 	@Setter
 	private LocalDateTime start;
 
-	@NonNull
 	@Getter
 	@Setter
 	private LocalDateTime end;
 
 	@Getter
 	@Setter
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "condomino_id")
+    private Condomino condomino;
+	
+	@Getter
+	@Setter
 	@ManyToMany(mappedBy = "reservas")
 	private List<EspacoComum> espacosComuns = new ArrayList<EspacoComum>();
-
-	@NonNull
+	
 	@Getter
 	@Setter
 	private Boolean isEnable;

@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
+import br.com.af.techcontrol.rest.entity.condominio.Reserva;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -41,6 +42,11 @@ public class Condomino extends BaseEntityAudit {
 	@Getter
 	@Setter
 	private Boolean isProprietario;
+	
+	@Getter
+	@Setter
+	@OneToOne(mappedBy = "condomino", cascade = CascadeType.ALL)
+	private Reserva reserva;
 	
 	@NonNull
 	@Getter

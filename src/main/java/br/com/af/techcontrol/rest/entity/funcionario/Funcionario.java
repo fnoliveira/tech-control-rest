@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity;
+package br.com.af.techcontrol.rest.entity.funcionario;
 
 import java.time.LocalDate;
 
@@ -7,8 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
@@ -35,11 +33,9 @@ public class Funcionario extends BaseEntityAudit {
 	@NonNull
 	@Getter
 	@Setter
-	@NotBlank
 	@Column(nullable = false)
 	private LocalDate dataAdmissao;
 
-	@NonNull
 	@Getter
 	@Setter
 	@Column(nullable = true)

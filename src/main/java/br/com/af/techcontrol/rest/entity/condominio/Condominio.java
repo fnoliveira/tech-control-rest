@@ -8,9 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import br.com.af.techcontrol.rest.entity.Funcionario;
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
+import br.com.af.techcontrol.rest.entity.funcionario.Funcionario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

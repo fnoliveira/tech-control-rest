@@ -10,7 +10,5 @@ public interface UserInfo {
 	
 	String getUsername();
 
-	String getEmail();
-	
 	Boolean getIsEnable();
 }

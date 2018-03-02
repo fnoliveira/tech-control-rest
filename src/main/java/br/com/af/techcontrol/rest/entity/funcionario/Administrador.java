@@ -1,4 +1,4 @@
-package br.com.af.techcontrol.rest.entity.condominio;
+package br.com.af.techcontrol.rest.entity.funcionario;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
-import br.com.af.techcontrol.rest.entity.base.Pessoa;
+import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -27,8 +27,8 @@ public class Administrador extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
-	private Pessoa pessoa;
+	@JoinColumn(name = "funcionario_id", referencedColumnName = "id")
+	private Funcionario funcionario;
 
 	@Getter
 	@Setter

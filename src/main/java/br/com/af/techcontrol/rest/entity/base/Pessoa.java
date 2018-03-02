@@ -7,10 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
@@ -20,7 +20,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
@@ -84,22 +83,9 @@ public class Pessoa extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "pessoas_telefones", joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "telefone_id", referencedColumnName = "id"))
-	private List<Telefone> telefones;
-
-	@NonNull
-	@Getter
-	@Setter
-	@Email(message = "E-mail inválido")
-	@Column(unique = true)
-	private String email;
-
-	@Getter
-	@Setter
-	@Size(min = 3, max = 255)
-	@Column(length = 255)
-	private String observacao;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
+	private List<Contato> contatos;
 
 	@NonNull
 	@Getter

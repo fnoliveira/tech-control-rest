@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import br.com.af.techcontrol.rest.entity.Funcionario;
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.condomino.Condomino;
 import br.com.af.techcontrol.rest.entity.condomino.Correspondencia;
+import br.com.af.techcontrol.rest.entity.funcionario.Funcionario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

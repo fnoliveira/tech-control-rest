@@ -9,10 +9,9 @@ import br.com.af.techcontrol.rest.entity.base.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-	@Query("SELECT u.pessoa.id as pessoaId, u.pessoa.nome as nome, u.id as userId, u.username as username, u.pessoa.email as email, u.isEnable as isEnable FROM User u WHERE u.username = :username")
+	@Query("SELECT u.pessoa.id as pessoaId, u.pessoa.nome as nome, u.id as userId, u.username as username, u.isEnable as isEnable FROM User u WHERE u.username = :username")
 	UserInfo findByUsernameProjection(@Param("username")String username);
 	
 	User findByUsername(String username);
-	
 	
 }

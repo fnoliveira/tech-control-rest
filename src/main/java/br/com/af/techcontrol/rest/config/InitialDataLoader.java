@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.rest.config;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,15 +12,17 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import br.com.af.techcontrol.rest.entity.base.Contato;
 import br.com.af.techcontrol.rest.entity.base.Endereco;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
 import br.com.af.techcontrol.rest.entity.base.Privilege;
 import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.base.User;
-import br.com.af.techcontrol.rest.entity.condominio.Administrador;
 import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condominio.Unidade;
+import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
+import br.com.af.techcontrol.rest.entity.funcionario.Funcionario;
 import br.com.af.techcontrol.rest.enums.TipoPessoa;
 import br.com.af.techcontrol.rest.service.AdministradorService;
 import br.com.af.techcontrol.rest.service.BlocoService;
@@ -81,7 +84,13 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	}
 
 	private void createUserMaster() {
-		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898", "f@f.com", true);
+		
+		Contato contato = new Contato("Comercial");
+		contato.setEmail("fnolivei@outlook.com");
+		
+		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898", true);
+		pessoa.setContatos(Arrays.asList(contato));
+		
 		User user = new User(pessoa, "master", "123456", true);
 		pessoa.setUser(user);
 		userService.createUserIfNotFound(user, "ROLE_MASTER");
@@ -92,16 +101,19 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		Endereco enderecoA = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR", true);
 		Endereco enderecoB = new Endereco("06663045", "Rua dois", "90", "", "Setor E", "Sao Paulo", "SP", "BR", true);
 
-		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197", "sac@passos.com.br", true);
+		Contato contato = new Contato("Comercial");
+		contato.setEmail("sac@passos.com.br");
+		contato.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true), new Telefone("Empresa", "11", "34343232", true)));
+
+		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197", true);
+		pessoa.setContatos(Arrays.asList(contato));
 		pessoa.setEnderecos(Arrays.asList(enderecoA, enderecoB));
-		pessoa.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true),
-				new Telefone("Empresa", "11", "34343232", true)));
 
 		User user = new User(pessoa, "adm", "123456", true);
 		pessoa.setUser(user);
 		userService.createUserIfNotFound(user, "ROLE_ADMIN");
 
-		Administrador administrador = new Administrador(pessoa, true);
+		Administrador administrador = new Administrador(new Funcionario(pessoa, LocalDate.now(),true), true);
 
 		administradorService.save(administrador);
 
@@ -109,15 +121,18 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	private void createCondominio() {
 
-		Endereco enderecoCondominio = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR",
-				true);
-		Pessoa pessoaCondominio = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182",
-				"parquedasrosas@tech-control.com.br", true);
-		pessoaCondominio.setEnderecos(Arrays.asList(enderecoCondominio));
-		pessoaCondominio.setTelefones(Arrays.asList(new Telefone("Empresa", "11", "41414141", true)));
+		Endereco endereco = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR", true);
+
+		Contato contato = new Contato("Comercial");
+		contato.setEmail("parquedasrosas@tech-control.com.br");
+		contato.setTelefones(Arrays.asList(new Telefone("Empresa", "11", "41414141", true)));
+
+		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182", true);
+		pessoa.setContatos(Arrays.asList(contato));
+		pessoa.setEnderecos(Arrays.asList(endereco));
 
 		Condominio condominio = new Condominio();
-		condominio.setPessoa(pessoaCondominio);
+		condominio.setPessoa(pessoa);
 		condominio.setFinalidade("Residencial");
 		condominio.setTipoCondominio("vertical");
 		condominio.setIsEnable(true);
