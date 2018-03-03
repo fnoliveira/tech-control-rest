@@ -4,14 +4,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
@@ -49,26 +47,25 @@ public class Condominio extends BaseEntityAudit {
 	@NonNull
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<Bloco> blocos;
 
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany
 	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<EspacoComum> espacos;
 
 	@Getter
 	@Setter
-	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "condominios_funcionarios", joinColumns = @JoinColumn(name = "condominio_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "funcionario_id", referencedColumnName = "id"))
 	private List<Funcionario> funcionarios;
 
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany
 	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
 	private List<Avisos> avisos;
 

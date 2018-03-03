@@ -1,6 +1,5 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -27,7 +26,7 @@ public class Vaga extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "vaga_id", referencedColumnName = "id")
 	private Veiculo veiculo;
 

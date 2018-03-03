@@ -2,7 +2,6 @@ package br.com.af.techcontrol.rest.entity.condominio;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -53,7 +52,7 @@ public class EspacoComum extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "espacoComum_reservas", joinColumns = @JoinColumn(name = "espacoComum_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "reserva_id", referencedColumnName = "id"))
 	private List<Reserva> reservas;
 

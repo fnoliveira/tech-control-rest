@@ -27,14 +27,14 @@ public class Condomino extends BaseEntityAudit {
 	@NonNull
 	@Getter
 	@Setter
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
 	@NonNull
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "condomino_id", referencedColumnName = "id")
 	private List<Animal> animais;
 

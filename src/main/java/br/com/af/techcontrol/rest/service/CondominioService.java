@@ -15,8 +15,8 @@ public class CondominioService {
 	@Autowired
 	CondominioRepository condominioRepository;
 
-	public void save(Condominio condominio) {
-		condominioRepository.save(condominio);
+	public Condominio save(Condominio condominio) {
+		return condominioRepository.save(condominio);
 	}
 
 	public Condominio findByCNPJ(String cpf_cnpj) {

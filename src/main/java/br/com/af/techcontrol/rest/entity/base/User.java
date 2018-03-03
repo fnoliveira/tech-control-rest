@@ -34,8 +34,8 @@ public class User extends BaseEntityAudit {
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 	
-	@NonNull
 	@Getter
+	@NonNull
 	@Setter
 	@Column(unique=true)
 	private String username;
@@ -48,7 +48,7 @@ public class User extends BaseEntityAudit {
 	@Getter
 	@Setter
     @Fetch(FetchMode.SELECT)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable( 
         name = "users_roles", 
         joinColumns = @JoinColumn(

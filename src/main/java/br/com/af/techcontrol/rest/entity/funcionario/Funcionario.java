@@ -26,7 +26,7 @@ public class Funcionario extends BaseEntityAudit {
 	@NonNull
 	@Getter
 	@Setter
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 

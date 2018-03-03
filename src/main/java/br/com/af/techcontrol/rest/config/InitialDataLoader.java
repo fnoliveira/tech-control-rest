@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -27,6 +25,7 @@ import br.com.af.techcontrol.rest.enums.TipoPessoa;
 import br.com.af.techcontrol.rest.service.AdministradorService;
 import br.com.af.techcontrol.rest.service.BlocoService;
 import br.com.af.techcontrol.rest.service.CondominioService;
+import br.com.af.techcontrol.rest.service.ContatoService;
 import br.com.af.techcontrol.rest.service.PrivilegeService;
 import br.com.af.techcontrol.rest.service.RoleService;
 import br.com.af.techcontrol.rest.service.UnidadeService;
@@ -57,8 +56,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	@Autowired
 	private UnidadeService unidadeService;
+	
+	@Autowired
+	private ContatoService contatoService;
 
-	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
 		if (alreadySetup)
@@ -73,20 +74,19 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		createCondominio();
 
 		createUnidade();
-		
-		setAdministradorCondominio();
 
 		alreadySetup = true;
 	}
 
 	private void createUserMaster() {
-		
+
 		Contato contato = new Contato("Comercial");
 		contato.setEmail("fnolivei@outlook.com");
+		contato = contatoService.save(contato);
 		
 		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898", true);
-		pessoa.setContatos(Arrays.asList(contato));
-		
+		pessoa.getContatos().add(contato);
+
 		User user = new User(pessoa, "master", "123456", true);
 		pessoa.setUser(user);
 		userService.createUserIfNotFound(user, "ROLE_MASTER");
@@ -99,17 +99,15 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		Contato contato = new Contato("Comercial");
 		contato.setEmail("sac@passos.com.br");
-		contato.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true), new Telefone("Empresa", "11", "34343232", true)));
-
+		contato.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true),
+				new Telefone("Empresa", "11", "34343232", true)));
+		contato = contatoService.save(contato);
+		
 		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197", true);
-		pessoa.setContatos(Arrays.asList(contato));
+		pessoa.getContatos().add(contato);
 		pessoa.setEnderecos(Arrays.asList(enderecoA, enderecoB));
-
-		User user = new User(pessoa, "adm", "123456", true);
-		pessoa.setUser(user);
-		userService.createUserIfNotFound(user, "ROLE_ADMIN");
-
-		Administrador administrador = new Administrador(new Funcionario(pessoa, LocalDate.now(),true), true);
+		
+		Administrador administrador = new Administrador(new Funcionario(pessoa, LocalDate.now(), true), true);
 
 		administradorService.save(administrador);
 
@@ -117,12 +115,15 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	private void createCondominio() {
 
+		Administrador administrador = administradorService.findByCPFCNPJ("24540435000197");
+		
 		Endereco endereco = new Endereco("06663190", "Rua um", "45", "", "Setor D", "Sao Paulo", "SP", "BR", true);
 
 		Contato contato = new Contato("Comercial");
 		contato.setEmail("parquedasrosas@tech-control.com.br");
 		contato.setTelefones(Arrays.asList(new Telefone("Empresa", "11", "41414141", true)));
-
+		contato = contatoService.save(contato);
+		
 		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182", true);
 		pessoa.setContatos(Arrays.asList(contato));
 		pessoa.setEnderecos(Arrays.asList(endereco));
@@ -133,38 +134,32 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		condominio.setTipoCondominio("vertical");
 		condominio.setIsEnable(true);
 		condominio.setBlocos(Arrays.asList(new Bloco("A", true), new Bloco("B", true)));
-		condominioService.save(condominio);
+		condominio = condominioService.save(condominio);
+		
+		administrador.getCondominios().add(condominio);
+		
+		administradorService.save(administrador);
 
 	}
 
 	private void createUnidade() {
-		
+
 		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+
 		
 		List<Bloco> blocos = condominio.getBlocos();
-		
+
 		for (Bloco bloco : blocos) {
-			
-			List<Unidade> unidades = unidadeService.save(Arrays.asList(new Unidade("110", true), new Unidade("120", true), new Unidade("130", true),
-					new Unidade("140", true)));
-			
+
+			List<Unidade> unidades = unidadeService.save(Arrays.asList(new Unidade("110", true),
+					new Unidade("120", true), new Unidade("130", true), new Unidade("140", true)));
+
 			bloco.setUnidades(unidades);
-			
+
 			blocoService.save(bloco);
 		}
 	}
 	
-	private void setAdministradorCondominio() {
-		
-		Administrador administrador = administradorService.findByCPFCNPJ("24540435000197");
-
-		Condominio condominio = condominioService.findByCNPJ("04846310000182");
-		
-		
-		
-		
-	}
-
 	private void initPrivilegesAndRoles() {
 
 		// == create initial privileges

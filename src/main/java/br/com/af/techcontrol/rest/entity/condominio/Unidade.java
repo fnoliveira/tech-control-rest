@@ -2,7 +2,6 @@ package br.com.af.techcontrol.rest.entity.condominio;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -36,26 +35,26 @@ public class Unidade extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
 	private List<Condomino> condominos;
 
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
 	private List<Vaga> vagas;
 
 	@Getter
 	@Setter
 	@Fetch(FetchMode.SELECT)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "unidades_funcionarios", joinColumns = @JoinColumn(name = "unidade_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "funcionario_id", referencedColumnName = "id"))
 	private List<Funcionario> funcionarios;
 
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
 	private List<Correspondencia> correspondencias;
 
