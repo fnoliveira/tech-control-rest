@@ -76,8 +76,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		createCondominio();
 
-		createBloco();
-
 		createUnidade();
 
 		alreadySetup = true;
@@ -136,17 +134,26 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		condominio.setFinalidade("Residencial");
 		condominio.setTipoCondominio("vertical");
 		condominio.setIsEnable(true);
+		condominio.setBlocos(Arrays.asList(new Bloco("A", true), new Bloco("B", true)));
 		condominioService.save(condominio);
 
 	}
 
-	private void createBloco() {
-		blocoService.save(Arrays.asList(new Bloco("A", true), new Bloco("B", true)));
-	}
-
 	private void createUnidade() {
-		unidadeService.save(Arrays.asList(new Unidade("110", true), new Unidade("120", true), new Unidade("130", true),
-				new Unidade("140", true)));
+		
+		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+		
+		List<Bloco> blocos = condominio.getBlocos();
+		
+		for (Bloco bloco : blocos) {
+			
+			List<Unidade> unidades = unidadeService.save(Arrays.asList(new Unidade("110", true), new Unidade("120", true), new Unidade("130", true),
+					new Unidade("140", true)));
+			
+			bloco.setUnidades(unidades);
+			
+			blocoService.save(bloco);
+		}
 	}
 
 	private void initPrivilegesAndRoles() {

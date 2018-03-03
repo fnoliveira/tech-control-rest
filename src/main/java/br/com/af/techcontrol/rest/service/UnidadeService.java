@@ -29,8 +29,8 @@ public class UnidadeService {
 		return repository.save(unidades);
 	}
 
-	public void save(List<Unidade> unidades) {
-		repository.save(unidades);
+	public List<Unidade> save(List<Unidade> unidades) {
+		return repository.save(unidades);
 	}
 
 	public Unidade findOne(Long id) {
