@@ -145,7 +145,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	private void createUnidade() {
 
 		Condominio condominio = condominioService.findByCNPJ("04846310000182");
-
 		
 		List<Bloco> blocos = condominio.getBlocos();
 

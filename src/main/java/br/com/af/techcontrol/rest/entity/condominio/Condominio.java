@@ -1,5 +1,6 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -47,9 +48,9 @@ public class Condominio extends BaseEntityAudit {
 	@NonNull
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "condominio_id", referencedColumnName = "id")
-	private List<Bloco> blocos;
+	private List<Bloco> blocos = new ArrayList<Bloco>();
 
 	@Getter
 	@Setter

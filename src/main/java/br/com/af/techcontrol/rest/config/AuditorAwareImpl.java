@@ -1,0 +1,25 @@
+package br.com.af.techcontrol.rest.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+
+public class AuditorAwareImpl implements AuditorAware<String> {
+
+	@Value("${security.usuarionaologado}")
+	String usuariosistema;
+
+	@Override
+	public String getCurrentAuditor() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication == null || !authentication.isAuthenticated()) {
+			return usuariosistema;
+		}
+
+		return ((User) authentication.getPrincipal()).getUsername();
+	}
+}
