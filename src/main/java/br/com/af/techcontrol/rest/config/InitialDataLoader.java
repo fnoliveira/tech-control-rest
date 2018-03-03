@@ -27,7 +27,6 @@ import br.com.af.techcontrol.rest.enums.TipoPessoa;
 import br.com.af.techcontrol.rest.service.AdministradorService;
 import br.com.af.techcontrol.rest.service.BlocoService;
 import br.com.af.techcontrol.rest.service.CondominioService;
-import br.com.af.techcontrol.rest.service.EnderecoService;
 import br.com.af.techcontrol.rest.service.PrivilegeService;
 import br.com.af.techcontrol.rest.service.RoleService;
 import br.com.af.techcontrol.rest.service.UnidadeService;
@@ -57,9 +56,6 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	private PrivilegeService privilegeService;
 
 	@Autowired
-	private EnderecoService enderecoService;
-
-	@Autowired
 	private UnidadeService unidadeService;
 
 	@Transactional
@@ -77,6 +73,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		createCondominio();
 
 		createUnidade();
+		
+		setAdministradorCondominio();
 
 		alreadySetup = true;
 	}
@@ -154,6 +152,17 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 			
 			blocoService.save(bloco);
 		}
+	}
+	
+	private void setAdministradorCondominio() {
+		
+		Administrador administrador = administradorService.findByCPFCNPJ("24540435000197");
+
+		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+		
+		
+		
+		
 	}
 
 	private void initPrivilegesAndRoles() {

@@ -37,17 +37,17 @@ public class Condomino extends BaseEntityAudit {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "condomino_id", referencedColumnName = "id")
 	private List<Animal> animais;
-	
+
 	@NonNull
 	@Getter
 	@Setter
 	private Boolean isProprietario;
-	
+
 	@Getter
 	@Setter
 	@OneToOne(mappedBy = "condomino", cascade = CascadeType.ALL)
 	private Reserva reserva;
-	
+
 	@NonNull
 	@Getter
 	@Setter

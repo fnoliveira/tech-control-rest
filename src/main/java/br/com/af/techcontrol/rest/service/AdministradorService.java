@@ -26,4 +26,8 @@ public class AdministradorService {
 		return administradorRepository.findByFuncionarioPessoaNome(nome);
 	}
 
+	public Administrador findByCPFCNPJ(String cpfOuCnpj) {
+		return administradorRepository.findByFuncionarioPessoaCpfOuCnpj(cpfOuCnpj);
+	}
+
 }

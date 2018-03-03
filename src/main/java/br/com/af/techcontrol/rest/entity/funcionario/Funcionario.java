@@ -38,9 +38,14 @@ public class Funcionario extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@Column(nullable = true)
 	private LocalDate dataDemissao;
 
+	
+	@Getter
+	@Setter
+	private String cargo;
+
+	
 	@NonNull
 	@Getter
 	@Setter

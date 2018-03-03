@@ -1,7 +1,6 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,7 +48,7 @@ public class Reserva extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@ManyToMany(mappedBy = "reservas")
-	private List<EspacoComum> espacosComuns = new ArrayList<EspacoComum>();
+	private List<EspacoComum> espacosComuns;
 	
 	@Getter
 	@Setter

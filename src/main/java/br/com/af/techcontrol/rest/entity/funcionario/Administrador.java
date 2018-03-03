@@ -32,7 +32,7 @@ public class Administrador extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "administrador_id", referencedColumnName = "id")
 	private List<Condominio> condominios;
 

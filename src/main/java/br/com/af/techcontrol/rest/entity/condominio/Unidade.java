@@ -5,7 +5,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.condomino.Condomino;
@@ -41,9 +46,11 @@ public class Unidade extends BaseEntityAudit {
 	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
 	private List<Vaga> vagas;
 
+	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "unidade_id", referencedColumnName = "id")
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "unidades_funcionarios", joinColumns = @JoinColumn(name = "unidade_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "funcionario_id", referencedColumnName = "id"))
 	private List<Funcionario> funcionarios;
 
 	@Getter

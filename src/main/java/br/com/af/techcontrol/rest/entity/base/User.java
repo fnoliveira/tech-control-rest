@@ -1,6 +1,5 @@
 package br.com.af.techcontrol.rest.entity.base;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -56,7 +55,7 @@ public class User extends BaseEntityAudit {
           name = "user_id", referencedColumnName = "id"), 
         inverseJoinColumns = @JoinColumn(
           name = "role_id", referencedColumnName = "id")) 
-    private Collection<Role> roles = new ArrayList<Role>();
+    private Collection<Role> roles;
 
 	@NonNull
 	@Getter
