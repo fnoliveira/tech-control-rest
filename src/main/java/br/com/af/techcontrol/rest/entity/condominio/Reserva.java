@@ -7,7 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.condomino.Condomino;
@@ -41,17 +41,16 @@ public class Reserva extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "condomino_id")
-    private Condomino condomino;
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "condomino_id")
+	private Condomino condomino;
+
 	@Getter
 	@Setter
 	@ManyToMany(mappedBy = "reservas")
 	private List<EspacoComum> espacosComuns;
-	
+
 	@Getter
 	@Setter
 	private Boolean isEnable;
-
 }
