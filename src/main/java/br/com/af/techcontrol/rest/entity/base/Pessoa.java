@@ -76,7 +76,7 @@ public class Pessoa extends BaseEntityAudit {
 	@Setter
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "pessoas_enderecos", joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "endereco_id", referencedColumnName = "id"))
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
 
 	@Getter
 	@Setter
