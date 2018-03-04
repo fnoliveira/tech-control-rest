@@ -9,7 +9,9 @@ import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
 
 public interface AdministradorRepository extends JpaRepository<Administrador, Long> {
 
-	List<AdministradorInfo> findByFuncionarioPessoaNome(String nome);
+	
+	List<Administrador> findByFuncionarioPessoaNome(String nome);
+	
 	
 	Administrador findByFuncionarioPessoaCpfOuCnpj(String cpfOuCnpj);
 

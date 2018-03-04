@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.af.techcontrol.rest.dto.AdministradorInfo;
+import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
 import br.com.af.techcontrol.rest.response.ApiStatusResponse;
 import br.com.af.techcontrol.rest.response.Response;
 import br.com.af.techcontrol.rest.service.AdministradorService;
@@ -23,16 +23,16 @@ public class AdministradorController {
 	AdministradorService administradorService;
 
 	@GetMapping(value = "/{nome}")
-	public ResponseEntity<Response<List<AdministradorInfo>>> retrieveUserInfo(@PathVariable("nome") String nome) {
+	public ResponseEntity<Response<List<Administrador>>> retrieveUserInfo(@PathVariable("nome") String nome) {
 
-		List<AdministradorInfo> admin = administradorService.findByNameProjection(nome);
+		List<Administrador> admin = administradorService.findByName(nome);
 
 		if (admin == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response<List<AdministradorInfo>>(
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Response<List<Administrador>>(
 					new ApiStatusResponse(HttpStatus.NOT_FOUND.value(), 4041, "Administrador with nome " + nome + " not found")));
 		}
 
-		return ResponseEntity.ok(new Response<List<AdministradorInfo>>(admin, new ApiStatusResponse(HttpStatus.OK.value(), 2001,"Sucesso")));
+		return ResponseEntity.ok(new Response<List<Administrador>>(admin, new ApiStatusResponse(HttpStatus.OK.value(), 2001,"Sucesso")));
 	}
 
 }
