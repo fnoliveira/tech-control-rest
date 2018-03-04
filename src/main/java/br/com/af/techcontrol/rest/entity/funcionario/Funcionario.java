@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import br.com.af.techcontrol.rest.entity.base.Pessoa;
 import lombok.Getter;
@@ -26,7 +28,7 @@ public class Funcionario extends BaseEntityAudit {
 	@NonNull
 	@Getter
 	@Setter
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private Pessoa pessoa;
 
@@ -34,18 +36,18 @@ public class Funcionario extends BaseEntityAudit {
 	@Getter
 	@Setter
 	@Column(nullable = false)
+	@JsonFormat(pattern = "dd:MM:yyyy")
 	private LocalDate dataAdmissao;
 
 	@Getter
 	@Setter
+	@JsonFormat(pattern = "dd:MM:yyyy")
 	private LocalDate dataDemissao;
 
-	
 	@Getter
 	@Setter
 	private String cargo;
 
-	
 	@NonNull
 	@Getter
 	@Setter

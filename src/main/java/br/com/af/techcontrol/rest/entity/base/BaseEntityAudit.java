@@ -11,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 
 @EntityListeners(AuditingEntityListener.class)
@@ -24,6 +26,7 @@ public abstract class BaseEntityAudit extends BaseEntity {
 	private String createdBy;
 
 	@Getter
+	@JsonFormat(pattern = "dd:MM:yyyy HH:mm:ss")
 	@CreatedDate
 	private LocalDateTime createdDate;
 
@@ -32,6 +35,7 @@ public abstract class BaseEntityAudit extends BaseEntity {
 	private String lastModifiedBy;
 
 	@Getter
+	@JsonFormat(pattern = "dd:MM:yyyy HH:mm:ss")
 	@LastModifiedDate
 	private LocalDateTime lastModifiedDate;
 
