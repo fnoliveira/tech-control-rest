@@ -18,14 +18,19 @@ import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.base.User;
 import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
+import br.com.af.techcontrol.rest.entity.condominio.EspacoComum;
 import br.com.af.techcontrol.rest.entity.condominio.Unidade;
+import br.com.af.techcontrol.rest.entity.condomino.Condomino;
 import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
 import br.com.af.techcontrol.rest.entity.funcionario.Funcionario;
 import br.com.af.techcontrol.rest.enums.TipoPessoa;
 import br.com.af.techcontrol.rest.service.AdministradorService;
 import br.com.af.techcontrol.rest.service.BlocoService;
 import br.com.af.techcontrol.rest.service.CondominioService;
+import br.com.af.techcontrol.rest.service.CondominoService;
 import br.com.af.techcontrol.rest.service.ContatoService;
+import br.com.af.techcontrol.rest.service.EspacoComumService;
+import br.com.af.techcontrol.rest.service.PessoaService;
 import br.com.af.techcontrol.rest.service.PrivilegeService;
 import br.com.af.techcontrol.rest.service.RoleService;
 import br.com.af.techcontrol.rest.service.UnidadeService;
@@ -44,9 +49,15 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	@Autowired
 	CondominioService condominioService;
+	
+	@Autowired
+	CondominoService condominoService;
 
 	@Autowired
 	private BlocoService blocoService;
+	
+	@Autowired
+	private EspacoComumService espacoComumService;
 
 	@Autowired
 	private RoleService roleService;
@@ -60,6 +71,9 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private ContatoService contatoService;
 
+	@Autowired
+	private PessoaService pessoaService;	
+	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
 		if (alreadySetup)
@@ -72,8 +86,12 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		createAdministradorPJ();
 
 		createCondominio();
+		
+		createEspacoComum();
 
 		createUnidade();
+		
+		//createCondomino();
 
 		alreadySetup = true;
 	}
@@ -127,6 +145,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182", true);
 		pessoa.setContatos(Arrays.asList(contato));
 		pessoa.setEnderecos(Arrays.asList(endereco));
+		
 
 		Condominio condominio = new Condominio();
 		condominio.setPessoa(pessoa);
@@ -157,6 +176,63 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 			blocoService.save(bloco);
 		}
+	}
+	
+	private void createEspacoComum() {
+		
+		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+		
+		List<EspacoComum> espacosComum = new ArrayList<EspacoComum>();
+		
+		EspacoComum espacoComum = new EspacoComum();
+		espacoComum.setNome("Salão de Festas BL A");
+		espacoComum.setDescricao("Salão de Festas infantil");
+		espacoComum.setLotacao(50);
+		espacoComum.setIsPermiteReserva(true);
+		espacoComum.setIsPermiteInadimplente(false);
+		espacoComum.setIsEnable(true);
+		
+		EspacoComum espacoComum2 = new EspacoComum();
+		espacoComum2.setNome("Salão de Festas BL B");
+		espacoComum2.setDescricao("Salão de Festas infantil");
+		espacoComum2.setLotacao(50);
+		espacoComum2.setIsPermiteReserva(true);
+		espacoComum2.setIsPermiteInadimplente(false);
+		espacoComum2.setIsEnable(true);
+		
+		espacosComum.add(espacoComum);
+		espacoComumService.save(espacoComum);
+		espacosComum.add(espacoComum2);
+		espacoComumService.save(espacoComum2);
+		
+		
+		condominio.setEspacos(espacosComum);
+		
+		condominioService.save(condominio);
+		
+	}
+	
+	private void createCondomino() {
+		Endereco endereco = new Endereco("06663190", "Rua um", "45", "BL A Apto 110", "Setor D", "Sao Paulo", "SP", "BR", true);
+		Contato contato = new Contato("Residencial");
+		contato.setEmail("apto110@passos.com.br");
+		contato.setTelefones(Arrays.asList(new Telefone("Celular", "11", "9123451234", true),
+				new Telefone("Fixo", "11", "34343239", true)));
+		contato = contatoService.save(contato);
+		
+		Pessoa pessoa = new Pessoa("Fulano Beltrano", TipoPessoa.FISICA, "35271689824", true);
+		pessoa.getContatos().add(contato);
+		pessoa.setEnderecos(Arrays.asList(endereco));
+		
+		pessoaService.createPessoaIfNotFound(pessoa);
+		
+		Condomino condomino = new Condomino();
+		condomino.setPessoa(pessoa);
+		condomino.setIsProprietario(true);
+		condomino.setIsEnable(true);
+		
+		condominoService.save(condomino);
+		
 	}
 	
 	private void initPrivilegesAndRoles() {
