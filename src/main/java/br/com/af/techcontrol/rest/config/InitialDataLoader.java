@@ -143,9 +143,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		contato = contatoService.save(contato);
 		
 		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182", true);
-		pessoa.setContatos(Arrays.asList(contato));
-		pessoa.setEnderecos(Arrays.asList(endereco));
-		
+		pessoa.getContatos().add(contato);
+		pessoa.getEnderecos().add(endereco);
 
 		Condominio condominio = new Condominio();
 		condominio.setPessoa(pessoa);
