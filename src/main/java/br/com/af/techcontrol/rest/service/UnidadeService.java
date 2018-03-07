@@ -39,5 +39,10 @@ public class UnidadeService {
 	public Unidade findOne(Long id) {
 		return repository.findOne(id);
 	}
+	
+	@Transactional
+	public List<Unidade> findByBlocoId(Long blocoId) {
+		return repository.findByBlocoId(blocoId);
+	}
 
 }

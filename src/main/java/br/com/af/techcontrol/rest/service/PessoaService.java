@@ -17,5 +17,10 @@ public class PessoaService {
 	public void createPessoaIfNotFound(Pessoa pessoa) {
 		pessoaRepository.save(pessoa);
 	}
+	
+	@Transactional
+	public Pessoa save(Pessoa pessoa) {
+		return pessoaRepository.save(pessoa);
+	}
 
 }

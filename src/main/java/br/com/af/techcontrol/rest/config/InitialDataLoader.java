@@ -74,6 +74,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private PessoaService pessoaService;	
 	
+	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
 		if (alreadySetup)
@@ -91,7 +92,9 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		createUnidade();
 		
-		//createCondomino();
+		createCondomino();
+		
+		vinculoCondominoUnidade();
 
 		alreadySetup = true;
 	}
@@ -223,7 +226,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		pessoa.getContatos().add(contato);
 		pessoa.setEnderecos(Arrays.asList(endereco));
 		
-		pessoaService.createPessoaIfNotFound(pessoa);
+		pessoa = pessoaService.save(pessoa);
 		
 		Condomino condomino = new Condomino();
 		condomino.setPessoa(pessoa);
@@ -231,6 +234,30 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		condomino.setIsEnable(true);
 		
 		condominoService.save(condomino);
+		
+	}
+	
+	private void vinculoCondominoUnidade() {
+		
+		Condomino condomino = condominoService.findByCNPJ("35271689824");
+		
+		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+		
+		List<Bloco> blocos = condominio.getBlocos();
+
+		for (Bloco bloco : blocos) {
+
+			if(bloco.getNome().equals("A")) {
+				List<Unidade> unidades = unidadeService.findByBlocoId(bloco.getId());
+				Unidade unidade = unidades.stream().filter(u -> "110".equals(u.getNome())).findAny().orElse(null);
+				
+				unidade.setCondominos(Arrays.asList(condomino));
+				unidade = unidadeService.save(unidade);
+				
+				blocoService.save(bloco);
+			}
+
+		}
 		
 	}
 	
