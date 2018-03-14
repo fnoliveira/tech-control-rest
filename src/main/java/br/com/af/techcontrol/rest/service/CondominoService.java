@@ -20,7 +20,7 @@ public class CondominoService {
 	}
 
 	@Transactional(readOnly=true)
-	public Condomino findByCNPJ(String cpf_cnpj) {
+	public Condomino findByCPFCNPJ(String cpf_cnpj) {
 		return condominoRepository.findByPessoaCpfOuCnpj(cpf_cnpj);
 	}
 }

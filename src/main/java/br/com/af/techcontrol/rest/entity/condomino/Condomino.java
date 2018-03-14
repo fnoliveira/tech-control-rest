@@ -45,7 +45,8 @@ public class Condomino extends BaseEntityAudit {
 
 	@Getter
 	@Setter
-	@OneToMany(mappedBy = "condomino", cascade = CascadeType.ALL)
+	@OneToMany/*(mappedBy = "condomino", cascade = CascadeType.ALL)*/
+	@JoinColumn(name = "condomino_id", referencedColumnName = "id")
 	private List<Reserva> reservas;
 
 	@NonNull

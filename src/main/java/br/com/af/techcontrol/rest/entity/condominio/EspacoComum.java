@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -49,11 +50,18 @@ public class EspacoComum extends BaseEntityAudit {
 	@Setter
 	private Boolean isPermiteReserva;
 
-	@Getter
+	/*@Getter
 	@Setter
 	@Fetch(FetchMode.SELECT)
 	@ManyToMany
 	@JoinTable(name = "espacoComum_reservas", joinColumns = @JoinColumn(name = "espacoComum_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "reserva_id", referencedColumnName = "id"))
+	private List<Reserva> reservas;*/
+	
+	@Getter
+	@Setter
+	@Fetch(FetchMode.SELECT)
+	@OneToMany
+	@JoinColumn(name = "espacoComum_id", referencedColumnName = "id")
 	private List<Reserva> reservas;
 
 	@NonNull

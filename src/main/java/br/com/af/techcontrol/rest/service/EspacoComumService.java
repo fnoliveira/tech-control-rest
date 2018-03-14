@@ -29,6 +29,10 @@ public class EspacoComumService {
 	public EspacoComum findByNome(String nome) {
 		return repository.findByNome(nome);
 	}
+	
+	public List<EspacoComum> findByCondominio(Long condominioId) {
+		return repository.findByCondominio(condominioId);
+	}
 
 	public EspacoComum findOne(Long id) {
 		return repository.findOne(id);

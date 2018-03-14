@@ -39,16 +39,16 @@ public class Reserva extends BaseEntityAudit {
 	@Setter
 	private LocalDateTime end;
 
-	@Getter
+	/*@Getter
 	@Setter
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "condomino_id")
-	private Condomino condomino;
+	private Condomino condomino;*/
 
-	@Getter
+	/*@Getter
 	@Setter
 	@ManyToMany(mappedBy = "reservas")
-	private List<EspacoComum> espacosComuns;
+	private List<EspacoComum> espacosComuns;*/
 
 	@Getter
 	@Setter

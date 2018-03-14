@@ -1,6 +1,7 @@
 package br.com.af.techcontrol.rest.config;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,7 @@ import br.com.af.techcontrol.rest.entity.base.User;
 import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condominio.EspacoComum;
+import br.com.af.techcontrol.rest.entity.condominio.Reserva;
 import br.com.af.techcontrol.rest.entity.condominio.Unidade;
 import br.com.af.techcontrol.rest.entity.condomino.Condomino;
 import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
@@ -32,6 +34,7 @@ import br.com.af.techcontrol.rest.service.ContatoService;
 import br.com.af.techcontrol.rest.service.EspacoComumService;
 import br.com.af.techcontrol.rest.service.PessoaService;
 import br.com.af.techcontrol.rest.service.PrivilegeService;
+import br.com.af.techcontrol.rest.service.ReservaService;
 import br.com.af.techcontrol.rest.service.RoleService;
 import br.com.af.techcontrol.rest.service.UnidadeService;
 import br.com.af.techcontrol.rest.service.UserService;
@@ -74,6 +77,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private PessoaService pessoaService;	
 	
+	@Autowired
+	private ReservaService reservaService;
 	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
@@ -239,7 +244,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	
 	private void vinculoCondominoUnidade() {
 		
-		Condomino condomino = condominoService.findByCNPJ("35271689824");
+		Condomino condomino = condominoService.findByCPFCNPJ("35271689824");
 		
 		Condominio condominio = condominioService.findByCNPJ("04846310000182");
 		
@@ -259,6 +264,22 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		}
 		
+	}
+	
+	private void createReserva() {
+		Condomino condomino = condominoService.findByCPFCNPJ("35271689824");
+		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+		
+		List<EspacoComum> espacosComum = espacoComumService.findByCondominio(condominio.getId());
+		
+		for (EspacoComum espacoComum : espacosComum) {
+			
+			if(!reservaService.existeReservaByData(LocalDateTime.of(2018, 03, 14, 14, 00), espacoComum.getId())) {
+				Reserva reserva = new Reserva();
+			}
+			
+			 
+		}
 	}
 	
 	private void initPrivilegesAndRoles() {
