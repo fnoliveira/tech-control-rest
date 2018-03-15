@@ -17,6 +17,7 @@ import br.com.af.techcontrol.rest.entity.base.Pessoa;
 import br.com.af.techcontrol.rest.entity.base.Privilege;
 import br.com.af.techcontrol.rest.entity.base.Telefone;
 import br.com.af.techcontrol.rest.entity.base.User;
+import br.com.af.techcontrol.rest.entity.condominio.Avisos;
 import br.com.af.techcontrol.rest.entity.condominio.Bloco;
 import br.com.af.techcontrol.rest.entity.condominio.Condominio;
 import br.com.af.techcontrol.rest.entity.condominio.EspacoComum;
@@ -27,6 +28,7 @@ import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
 import br.com.af.techcontrol.rest.entity.funcionario.Funcionario;
 import br.com.af.techcontrol.rest.enums.TipoPessoa;
 import br.com.af.techcontrol.rest.service.AdministradorService;
+import br.com.af.techcontrol.rest.service.AvisosService;
 import br.com.af.techcontrol.rest.service.BlocoService;
 import br.com.af.techcontrol.rest.service.CondominioService;
 import br.com.af.techcontrol.rest.service.CondominoService;
@@ -80,6 +82,9 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private ReservaService reservaService;
 	
+	@Autowired
+	private AvisosService avisosService;
+	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
 		if (alreadySetup)
@@ -100,6 +105,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		createCondomino();
 		
 		vinculoCondominoUnidade();
+		
+		createReserva();
+		
+		createAvisos();
 
 		alreadySetup = true;
 	}
@@ -270,16 +279,56 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		Condomino condomino = condominoService.findByCPFCNPJ("35271689824");
 		Condominio condominio = condominioService.findByCNPJ("04846310000182");
 		
+		Reserva reserva = new Reserva();
+		reserva.setTitle("Festa da Paula");
+		reserva.setDescription("Festa da Paula - " + condomino.getId());
+		reserva.setIsEnable(true);
+		reserva.setStart(LocalDateTime.of(2018, 03, 14, 14, 00));
+		reserva.setEnd(LocalDateTime.of(2018, 03, 14, 18, 00));
+		
+		reserva = reservaService.save(reserva);
+		
+		condomino.setReservas(Arrays.asList(reserva));
+		
+		
 		List<EspacoComum> espacosComum = espacoComumService.findByCondominio(condominio.getId());
 		
 		for (EspacoComum espacoComum : espacosComum) {
 			
 			if(!reservaService.existeReservaByData(LocalDateTime.of(2018, 03, 14, 14, 00), espacoComum.getId())) {
-				Reserva reserva = new Reserva();
+				espacoComum.setReservas(Arrays.asList(reserva));
+				espacoComumService.save(espacoComum);
 			}
-			
-			 
+					 
 		}
+		condominoService.save(condomino);
+	}
+	
+	private void createAvisos() {
+		Condominio condominio = condominioService.findByCNPJ("04846310000182");
+		
+		List<Avisos> avisosCondominio = new ArrayList<Avisos>(); 
+		
+		for (int i = 0; i < 10; i++) {
+			Avisos aviso = new Avisos();
+			aviso.setTitulo("Aviso " + i);
+			aviso.setDestinatario("Todos");
+			aviso.setIsEnable(true);
+			aviso.setAviso("Avisos a todos " + i);
+			if(i%2 == 0) {
+				aviso.setIsFixo(false);
+				aviso.setIsUrgente(true);
+				aviso.setStart(LocalDateTime.of(2018, 01, 01, 00, 00));
+				aviso.setEnd(LocalDateTime.of(2018, 12, 31, 23, 59));
+			}else {
+				aviso.setIsFixo(true);
+				aviso.setIsUrgente(false);
+			}
+			aviso = avisosService.save(aviso);
+			avisosCondominio.add(aviso);
+		}
+		condominio.setAvisos(avisosCondominio);
+		condominioService.save(condominio);
 	}
 	
 	private void initPrivilegesAndRoles() {

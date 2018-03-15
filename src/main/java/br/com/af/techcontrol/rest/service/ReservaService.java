@@ -28,6 +28,10 @@ public class ReservaService {
 		
 	}
 	
+	public Reserva save(Reserva reserva) {
+		return reservaRepository.save(reserva);
+	}
+	
 	
 
 }

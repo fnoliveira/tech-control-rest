@@ -1,5 +1,7 @@
 package br.com.af.techcontrol.rest.entity.condominio;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 
 import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
@@ -50,4 +52,12 @@ public class Avisos extends BaseEntityAudit {
 	@Getter
 	@Setter
 	private Boolean isEnable;
+	
+	@Getter
+	@Setter
+	private LocalDateTime start;
+
+	@Getter
+	@Setter
+	private LocalDateTime end;
 }
