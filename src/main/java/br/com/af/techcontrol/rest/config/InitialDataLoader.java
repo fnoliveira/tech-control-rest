@@ -331,6 +331,8 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		condominioService.save(condominio);
 	}
 	
+	
+	
 	private void initPrivilegesAndRoles() {
 
 		// == create initial privileges
