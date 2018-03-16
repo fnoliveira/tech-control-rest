@@ -12,7 +12,7 @@ import br.com.af.techcontrol.rest.entity.condominio.Avisos;
 public interface AvisosRepository extends JpaRepository<Avisos, Long> {
 	
 	@Query(value="SELECT a.* FROM avisos a where a.condominio_id = :condominio_id",nativeQuery=true)
-	List<Avisos> findByCondominioId(Long condominio_id);
+	List<Avisos> findByCondominioId(@Param("condominio_id")Long condominio_id);
 	
 	@Query(value="SELECT a.* FROM avisos a where a.is_fixo = :is_fixo and a.condominio_id = :condominio_id",nativeQuery=true)
 	List<Avisos> findByIsFixo(@Param("is_fixo")Boolean is_fixo, @Param("condominio_id")Long condominio_id);

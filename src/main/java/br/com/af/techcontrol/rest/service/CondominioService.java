@@ -23,4 +23,9 @@ public class CondominioService {
 	public Condominio findByCNPJ(String cpf_cnpj) {
 		return condominioRepository.findByPessoaCpfOuCnpj(cpf_cnpj);
 	}
+	
+	@Transactional(readOnly=true)
+	public Condominio findById(Long id) {
+		return condominioRepository.findById(id);
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.af.techcontrol.rest.dto.AvisosDto;
 import br.com.af.techcontrol.rest.entity.condominio.Avisos;
 import br.com.af.techcontrol.rest.repository.AvisosRepository;
 
@@ -23,6 +24,23 @@ public class AvisosService {
 
 	@Transactional
 	public Avisos save(Avisos avisos) {
+		return repository.save(avisos);
+	}
+	
+	@Transactional
+	public Avisos saveDto(AvisosDto avisosDto) {
+		Avisos avisos = new Avisos(avisosDto.getDestinatario(),
+									avisosDto.getTitulo(),
+									avisosDto.getAviso(),
+									avisosDto.getAnexo(),
+									avisosDto.getIsUrgente(),
+									avisosDto.getIsFixo(),
+									avisosDto.getIsEnable(), 
+									avisosDto.getStart(),
+									avisosDto.getEnd()
+									);
+		
+		
 		return repository.save(avisos);
 	}
 

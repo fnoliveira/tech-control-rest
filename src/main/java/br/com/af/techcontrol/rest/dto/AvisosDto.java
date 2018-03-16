@@ -1,26 +1,21 @@
-package br.com.af.techcontrol.rest.entity.condominio;
+package br.com.af.techcontrol.rest.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import br.com.af.techcontrol.rest.entity.base.BaseEntityAudit;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@RequiredArgsConstructor
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Avisos extends BaseEntityAudit {
 
-	private static final long serialVersionUID = 1L;
+public class AvisosDto {
 
 	@NonNull
 	@Getter
