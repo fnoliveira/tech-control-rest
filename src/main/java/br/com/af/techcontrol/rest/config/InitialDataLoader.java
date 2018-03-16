@@ -185,7 +185,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		for (Bloco bloco : blocos) {
 
-			List<Unidade> unidades = unidadeService.save(Arrays.asList(new Unidade("110", true),
+			List<Unidade> unidades = unidadeService.salvarComRetorno(Arrays.asList(new Unidade("110", true),
 					new Unidade("120", true), new Unidade("130", true), new Unidade("140", true)));
 
 			bloco.setUnidades(unidades);
@@ -266,7 +266,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				Unidade unidade = unidades.stream().filter(u -> "110".equals(u.getNome())).findAny().orElse(null);
 				
 				unidade.setCondominos(Arrays.asList(condomino));
-				unidade = unidadeService.save(unidade);
+				unidade = unidadeService.salvarComRetorno(unidade);
 				
 				blocoService.save(bloco);
 			}
