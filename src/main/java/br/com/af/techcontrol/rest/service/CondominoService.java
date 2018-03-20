@@ -1,26 +1,10 @@
 package br.com.af.techcontrol.rest.service;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import br.com.af.techcontrol.rest.entity.condomino.Condomino;
-import br.com.af.techcontrol.rest.repository.CondominoRepository;
+import br.com.af.techcontrol.rest.service.base.CrudService;
 
-@Service
-public class CondominoService {
+public interface CondominoService extends CrudService<Condomino, Long> {
 
-	@Autowired
-	CondominoRepository condominoRepository;
+	Condomino findByCPFCNPJ(String cpf_cnpj);
 
-	@Transactional
-	public Condomino save(Condomino condomino) {
-		return condominoRepository.save(condomino);
-	}
-
-	@Transactional(readOnly=true)
-	public Condomino findByCPFCNPJ(String cpf_cnpj) {
-		return condominoRepository.findByPessoaCpfOuCnpj(cpf_cnpj);
-	}
 }

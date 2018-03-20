@@ -15,7 +15,7 @@ public class UnidadeServiceImpl extends AbstractService<Unidade, Long> implement
 
 	@Autowired
 	UnidadeRepository repository;
-	
+
 	@Override
 	@Transactional
 	public List<Unidade> findByBlocoId(Long blocoId) {

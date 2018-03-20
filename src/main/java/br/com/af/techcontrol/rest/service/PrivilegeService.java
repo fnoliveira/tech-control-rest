@@ -1,28 +1,10 @@
 package br.com.af.techcontrol.rest.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import br.com.af.techcontrol.rest.entity.base.Privilege;
-import br.com.af.techcontrol.rest.repository.PrivilegeRepository;
+import br.com.af.techcontrol.rest.service.base.CrudService;
 
-@Service
-public class PrivilegeService {
+public interface PrivilegeService extends CrudService<Privilege, Long>{
 
-	@Autowired
-	PrivilegeRepository repository;
+	Privilege createPrivilegeIfNotFound(String name);
 
-	@Transactional
-	public Privilege createPrivilegeIfNotFound(String name) {
-
-		Privilege privilege = repository.findByName(name);
-
-		if (privilege == null) {
-			privilege = new Privilege(name);
-			return repository.save(privilege);
-		}
-
-		return privilege;
-	}
 }

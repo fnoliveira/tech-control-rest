@@ -32,7 +32,7 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 	public User findByUsername(String username) {
 		return repository.findByUsername(username);
 	}
-	
+
 	@Override
 	@Transactional
 	public void createUserIfNotFound(User user, String roleName) {
@@ -45,8 +45,9 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 
 			user.setRoles(Arrays.asList(role));
 
-			salvar(user);
+			repository.save(user);
 		}
+
 	}
 
 }

@@ -117,7 +117,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 		Contato contato = new Contato("Comercial");
 		contato.setEmail("fnolivei@outlook.com");
-		contato = contatoService.save(contato);
+		contato = contatoService.salvarComRetorno(contato);
 		
 		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898", true);
 		pessoa.getContatos().add(contato);
@@ -136,7 +136,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		contato.setEmail("sac@passos.com.br");
 		contato.setTelefones(Arrays.asList(new Telefone("Celular", "11", "123451234", true),
 				new Telefone("Empresa", "11", "34343232", true)));
-		contato = contatoService.save(contato);
+		contato = contatoService.salvarComRetorno(contato);
 		
 		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197", true);
 		pessoa.getContatos().add(contato);
@@ -144,7 +144,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		
 		Administrador administrador = new Administrador(new Funcionario(pessoa, LocalDate.now(), true), true);
 
-		administradorService.save(administrador);
+		administradorService.salvar(administrador);
 
 	}
 
@@ -157,7 +157,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		Contato contato = new Contato("Comercial");
 		contato.setEmail("parquedasrosas@tech-control.com.br");
 		contato.setTelefones(Arrays.asList(new Telefone("Empresa", "11", "41414141", true)));
-		contato = contatoService.save(contato);
+		contato = contatoService.salvarComRetorno(contato);
 		
 		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182", true);
 		pessoa.getContatos().add(contato);
@@ -169,11 +169,11 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		condominio.setTipoCondominio("vertical");
 		condominio.setIsEnable(true);
 		condominio.setBlocos(Arrays.asList(new Bloco("A", true), new Bloco("B", true)));
-		condominio = condominioService.save(condominio);
+		condominio = condominioService.salvarComRetorno(condominio);
 		
 		administrador.getCondominios().add(condominio);
 		
-		administradorService.save(administrador);
+		administradorService.salvar(administrador);
 
 	}
 
@@ -190,7 +190,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 			bloco.setUnidades(unidades);
 
-			blocoService.save(bloco);
+			blocoService.salvar(bloco);
 		}
 	}
 	
@@ -217,14 +217,14 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		espacoComum2.setIsEnable(true);
 		
 		espacosComum.add(espacoComum);
-		espacoComumService.save(espacoComum);
+		espacoComumService.salvar(espacoComum);
 		espacosComum.add(espacoComum2);
-		espacoComumService.save(espacoComum2);
+		espacoComumService.salvar(espacoComum2);
 		
 		
 		condominio.setEspacos(espacosComum);
 		
-		condominioService.save(condominio);
+		condominioService.salvar(condominio);
 		
 	}
 	
@@ -234,20 +234,20 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		contato.setEmail("apto110@passos.com.br");
 		contato.setTelefones(Arrays.asList(new Telefone("Celular", "11", "9123451234", true),
 				new Telefone("Fixo", "11", "34343239", true)));
-		contato = contatoService.save(contato);
+		contato = contatoService.salvarComRetorno(contato);
 		
 		Pessoa pessoa = new Pessoa("Fulano Beltrano", TipoPessoa.FISICA, "35271689824", true);
 		pessoa.getContatos().add(contato);
 		pessoa.setEnderecos(Arrays.asList(endereco));
 		
-		pessoa = pessoaService.save(pessoa);
+		pessoa = pessoaService.salvarComRetorno(pessoa);
 		
 		Condomino condomino = new Condomino();
 		condomino.setPessoa(pessoa);
 		condomino.setIsProprietario(true);
 		condomino.setIsEnable(true);
 		
-		condominoService.save(condomino);
+		condominoService.salvarComRetorno(condomino);
 		
 	}
 	
@@ -268,7 +268,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				unidade.setCondominos(Arrays.asList(condomino));
 				unidade = unidadeService.salvarComRetorno(unidade);
 				
-				blocoService.save(bloco);
+				blocoService.salvar(bloco);
 			}
 
 		}
@@ -286,7 +286,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		reserva.setStart(LocalDateTime.of(2018, 03, 14, 14, 00));
 		reserva.setEnd(LocalDateTime.of(2018, 03, 14, 18, 00));
 		
-		reserva = reservaService.save(reserva);
+		reserva = reservaService.salvarComRetorno(reserva);
 		
 		condomino.setReservas(Arrays.asList(reserva));
 		
@@ -297,11 +297,11 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 			
 			if(!reservaService.existeReservaByData(LocalDateTime.of(2018, 03, 14, 14, 00), espacoComum.getId())) {
 				espacoComum.setReservas(Arrays.asList(reserva));
-				espacoComumService.save(espacoComum);
+				espacoComumService.salvar(espacoComum);
 			}
 					 
 		}
-		condominoService.save(condomino);
+		condominoService.salvar(condomino);
 	}
 	
 	private void createAvisos() {
@@ -324,11 +324,11 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				aviso.setIsFixo(true);
 				aviso.setIsUrgente(false);
 			}
-			aviso = avisosService.save(aviso);
+			aviso = avisosService.salvarComRetorno(aviso);
 			avisosCondominio.add(aviso);
 		}
 		condominio.setAvisos(avisosCondominio);
-		condominioService.save(condominio);
+		condominioService.salvar(condominio);
 	}
 	
 	private void initPrivilegesAndRoles() {

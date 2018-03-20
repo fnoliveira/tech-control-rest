@@ -2,32 +2,13 @@ package br.com.af.techcontrol.rest.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import br.com.af.techcontrol.rest.entity.funcionario.Administrador;
-import br.com.af.techcontrol.rest.repository.AdministradorRepository;
+import br.com.af.techcontrol.rest.service.base.CrudService;
 
-@Service
-public class AdministradorService {
+public interface AdministradorService extends CrudService<Administrador, Long>{
 
-	@Autowired
-	AdministradorRepository administradorRepository;
+	public Administrador findByCPFCNPJ(String cpfOuCnpj);
 
-	@Transactional
-	public void save(Administrador administrador) {
-		administradorRepository.save(administrador);
-	}
-
-	@Transactional(readOnly = true)
-	public Administrador findByCPFCNPJ(String cpfOuCnpj) {
-		return administradorRepository.findByFuncionarioPessoaCpfOuCnpj(cpfOuCnpj);
-	}
-
-	@Transactional(readOnly = true)
-	public List<Administrador> findByName(String nome) {
-		return administradorRepository.findByFuncionarioPessoaNome(nome);
-	}
+	public List<Administrador> findByName(String nome);
 
 }
