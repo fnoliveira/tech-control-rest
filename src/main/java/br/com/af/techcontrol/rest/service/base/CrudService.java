@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface CrudService<E, PK extends Serializable> {
 
 	public abstract void salvar(E entity);
+	
 	public abstract void salvar(List<E> entity);
 	
 	public abstract E salvarComRetorno(E entity);

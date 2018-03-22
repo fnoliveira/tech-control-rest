@@ -1,6 +1,7 @@
 package br.com.af.techcontrol.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.af.techcontrol.rest.controller.base.AbstractController;
 import br.com.af.techcontrol.rest.dto.UserInfo;
 import br.com.af.techcontrol.rest.entity.base.User;
-import br.com.af.techcontrol.rest.response.ApiStatusResponse;
-import br.com.af.techcontrol.rest.response.Response;
 import br.com.af.techcontrol.rest.service.UserService;
 
 @RestController
@@ -28,18 +27,15 @@ public class GuestController extends AbstractController<User, Long> {
 	}
 
 	@GetMapping(value = "username/{username}")
-	public ResponseEntity<Response<UserInfo>> retrieveUserInfo(@PathVariable("username") String username) {
+	public ResponseEntity<UserInfo> retrieveUserInfo(@PathVariable String username) {
 
 		UserInfo user = userService.findByUsernameProjection(username);
 
 		if (user == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new Response<UserInfo>(new ApiStatusResponse(HttpStatus.NOT_FOUND.value(), 4041,
-							"User with username " + username + " not found")));
+			return new ResponseEntity<UserInfo>(HttpStatus.NOT_FOUND);
 		}
 
-		return ResponseEntity
-				.ok(new Response<UserInfo>(user, new ApiStatusResponse(HttpStatus.OK.value(), 2001, "Sucesso")));
+		return new ResponseEntity<UserInfo>(user, new HttpHeaders(), HttpStatus.OK);
 	}
 
 }
