@@ -29,6 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		.antMatchers("/reserva/**").permitAll()
 		.antMatchers("/console/**").permitAll()
 		.antMatchers("/avisos/**").permitAll()
+		.antMatchers("/condominio/**").permitAll()
 		.anyRequest().authenticated();
 	}
 	
