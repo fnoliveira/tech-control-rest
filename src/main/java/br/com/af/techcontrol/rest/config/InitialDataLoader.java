@@ -119,11 +119,11 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		contato.setEmail("fnolivei@outlook.com");
 		contato = contatoService.salvarComRetorno(contato);
 		
-		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898", true);
+		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898");
 		pessoa.getContatos().add(contato);
 
 		User user = new User(pessoa, "master", "123456", true);
-		pessoa.setUser(user);
+		user.setPessoa(pessoa);
 		userService.createUserIfNotFound(user, "ROLE_MASTER");
 	}
 
@@ -138,7 +138,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				new Telefone("Empresa", "11", "34343232", true)));
 		contato = contatoService.salvarComRetorno(contato);
 		
-		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197", true);
+		Pessoa pessoa = new Pessoa("Passos Adm", TipoPessoa.JURIDICA, "24540435000197");
 		pessoa.getContatos().add(contato);
 		pessoa.setEnderecos(Arrays.asList(enderecoA, enderecoB));
 		
@@ -159,7 +159,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		contato.setTelefones(Arrays.asList(new Telefone("Empresa", "11", "41414141", true)));
 		contato = contatoService.salvarComRetorno(contato);
 		
-		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182", true);
+		Pessoa pessoa = new Pessoa("Parque das Rosas", TipoPessoa.JURIDICA, "04846310000182");
 		pessoa.getContatos().add(contato);
 		pessoa.getEnderecos().add(endereco);
 
@@ -236,7 +236,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 				new Telefone("Fixo", "11", "34343239", true)));
 		contato = contatoService.salvarComRetorno(contato);
 		
-		Pessoa pessoa = new Pessoa("Fulano Beltrano", TipoPessoa.FISICA, "35271689824", true);
+		Pessoa pessoa = new Pessoa("Fulano Beltrano", TipoPessoa.FISICA, "35271689824");
 		pessoa.getContatos().add(contato);
 		pessoa.setEnderecos(Arrays.asList(endereco));
 		

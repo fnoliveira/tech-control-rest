@@ -10,32 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.af.techcontrol.rest.controller.base.AbstractController;
-import br.com.af.techcontrol.rest.dto.UserInfo;
 import br.com.af.techcontrol.rest.entity.base.User;
 import br.com.af.techcontrol.rest.service.UserService;
 
 @RestController
-@RequestMapping("/guest")
-public class GuestController extends AbstractController<User, Long> {
+@RequestMapping("/user")
+public class UserController extends AbstractController<User, Long> {
 
 	@Autowired
 	UserService userService;
 
 	@Autowired
-	public GuestController(UserService userService) {
+	public UserController(UserService userService) {
 		super(userService);
 	}
 
-	@GetMapping(value = "username/{username}")
-	public ResponseEntity<UserInfo> retrieveUserInfo(@PathVariable String username) {
-
-		UserInfo user = userService.findByUsernameProjection(username);
-
-		if (user == null) {
-			return new ResponseEntity<UserInfo>(HttpStatus.NOT_FOUND);
+	@GetMapping("/details/{username}")
+	public ResponseEntity<User> get(@PathVariable String username) {
+		User entity = null;
+		entity = userService.findByUsername(username);
+		if (entity == null) {
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
-
-		return new ResponseEntity<UserInfo>(user, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<User>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
-
 }

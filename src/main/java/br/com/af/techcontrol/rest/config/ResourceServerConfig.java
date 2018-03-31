@@ -25,7 +25,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.OPTIONS).permitAll()
 		.antMatchers("/administrador/**").permitAll()
-		.antMatchers("/guest/**").permitAll()
+		.antMatchers("/user/**").permitAll()
 		.antMatchers("/reserva/**").permitAll()
 		.antMatchers("/console/**").permitAll()
 		.antMatchers("/avisos/**").permitAll()

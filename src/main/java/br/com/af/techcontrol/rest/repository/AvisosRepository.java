@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import br.com.af.techcontrol.rest.entity.condominio.Avisos;
 
+@Repository
 public interface AvisosRepository extends JpaRepository<Avisos, Long> {
 	
 	@Query(value="SELECT a.* FROM avisos a where a.condominio_id = :condominio_id",nativeQuery=true)

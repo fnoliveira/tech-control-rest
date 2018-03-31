@@ -32,7 +32,7 @@ public abstract class AbstractService<E, PK extends Serializable> implements Cru
 	public List<E> salvarComRetorno(List<E> entity) {
 		return getRepository().save(entity);
 	}
-	
+
 	@Transactional
 	public void salvar(List<E> entity) {
 		getRepository().save(entity);
