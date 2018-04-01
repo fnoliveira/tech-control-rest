@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.com.af.techcontrol.rest.entity.base.Contato;
@@ -85,6 +86,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	@Autowired
 	private AvisosService avisosService;
 	
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
 		if (alreadySetup)
@@ -121,8 +126,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		
 		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898");
 		pessoa.getContatos().add(contato);
-
-		User user = new User(pessoa, "master", "123456", true);
+		User user = new User(pessoa, "master", passwordEncoder.encode("123456"), true);
 		user.setPessoa(pessoa);
 		userService.createUserIfNotFound(user, "ROLE_MASTER");
 	}
