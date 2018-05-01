@@ -119,15 +119,14 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 	}
 
 	private void createUserMaster() {
-
-		Contato contato = new Contato("Comercial");
-		contato.setEmail("fnolivei@outlook.com");
-		contato = contatoService.salvarComRetorno(contato);
 		
-		Pessoa pessoa = new Pessoa("Master", TipoPessoa.FISICA, "31406826898");
-		pessoa.getContatos().add(contato);
-		User user = new User(pessoa, "master", passwordEncoder.encode("123456"), true);
-		user.setPessoa(pessoa);
+		User user = new User("master", passwordEncoder.encode("123456"), true);
+		
+		userService.createUserIfNotFound(user, "ROLE_MASTER");
+		
+		
+		new User("joao", passwordEncoder.encode("123456"), true);
+		
 		userService.createUserIfNotFound(user, "ROLE_MASTER");
 	}
 
@@ -346,8 +345,11 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
 		roleService.createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
 
-		List<Privilege> rolePrivileges = new ArrayList<>();
-		roleService.createRoleIfNotFound("ROLE_USER", rolePrivileges);
+		List<Privilege> userPrivileges = Arrays.asList(readPrivilege);
+		roleService.createRoleIfNotFound("ROLE_USER", userPrivileges);
+		
+		List<Privilege> guestPrivileges = Arrays.asList(readPrivilege);
+		roleService.createRoleIfNotFound("ROLE_GUEST", guestPrivileges);
 
 		List<Privilege> masterPrivileges = Arrays.asList(masterPrivilege);
 		roleService.createRoleIfNotFound("ROLE_MASTER", masterPrivileges);

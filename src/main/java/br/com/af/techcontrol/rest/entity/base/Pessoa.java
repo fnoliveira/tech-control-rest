@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -72,11 +73,24 @@ public class Pessoa extends BaseEntityAudit {
 	@JoinTable(name = "pessoas_enderecos", joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "endereco_id", referencedColumnName = "id"))
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 
+	@NonNull
+	@Getter
+	@Setter
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "pessoas_papeis", joinColumns = @JoinColumn(name = "pessoa_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "papel_id", referencedColumnName = "id"))
+	private List<Papel> papeis = new ArrayList<Papel>();
+	
 	@Getter
 	@Setter
 	@OneToMany
 	@JoinColumn(name = "pessoa_id", referencedColumnName = "id")
 	private List<Contato> contatos = new ArrayList<Contato>();
+
+	@Getter
+	@Setter
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	@PrePersist
 	@PreUpdate
